@@ -15,7 +15,7 @@ const StudioGallery = ({
 
   if (!images.length) {
     return (
-      <div className="flex h-[350px] items-center justify-center rounded-2xl bg-muted">
+      <div className="flex h-87.5 items-center justify-center rounded-2xl bg-muted">
         <Images className="size-12 text-muted-foreground" />
       </div>
     );
@@ -35,7 +35,7 @@ const StudioGallery = ({
 
   return (
     <section className="space-y-3">
-      <div className="group relative h-[300px] overflow-hidden rounded-2xl bg-muted sm:h-[450px]">
+      <div className="group relative h-75 overflow-hidden rounded-2xl bg-muted sm:h-112.5">
         <Image
           src={images[activeIndex]}
           alt={`${title} - Image ${activeIndex + 1}`}

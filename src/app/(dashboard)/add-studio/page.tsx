@@ -67,7 +67,6 @@ export default function AddStudioForm() {
       });
 
       const backendRes = await res.json();
-      console.log(backendRes, "backend response");
       if (!res.ok) {
         toast.error(backendRes.message);
         return;

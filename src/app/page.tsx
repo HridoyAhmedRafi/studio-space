@@ -1,11 +1,15 @@
-import { Button } from "@/components/ui/button";
+import BannerPage from "@/components/home/banner";
+import HostGuarantee from "@/components/home/host-guarantee";
+import HowItWorks from "@/components/home/how-it-works";
 
-const HomaPage = () => {
+const HomePage = () => {
   return (
     <div>
-      <Button>Hello world</Button>
+      <BannerPage />
+      <HowItWorks />
+      <HostGuarantee />
     </div>
   );
 };
 
-export default HomaPage;
+export default HomePage;

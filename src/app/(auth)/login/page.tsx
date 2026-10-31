@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Eye,
-  EyeOff,
-  Mail,
-  Lock,
-  Clapperboard,
-} from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Clapperboard } from "lucide-react";
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
@@ -21,6 +15,9 @@ export default function RegisterPage() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    console.log(user, "user login");
 
     if (!isPasswordValid) return;
 
@@ -40,7 +37,9 @@ export default function RegisterPage() {
             Login your account
           </h1>
 
-          <p className="mt-1 text-sm text-muted-foreground">Login your account.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Login your account.
+          </p>
         </div>
 
         {/* Registration Form */}
@@ -55,6 +54,7 @@ export default function RegisterPage() {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
 
               <input
+                name="email"
                 type="email"
                 placeholder="you@example.com"
                 required
@@ -73,6 +73,7 @@ export default function RegisterPage() {
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
 
               <input
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a strong password"
                 value={password}
@@ -110,7 +111,9 @@ export default function RegisterPage() {
         {/* Divider */}
         <div className="my-6 flex items-center gap-4">
           <div className="h-px flex-1 bg-border" />
-          <span className="text-xs text-muted-foreground">OR CONTINUE WITH</span>
+          <span className="text-xs text-muted-foreground">
+            OR CONTINUE WITH
+          </span>
           <div className="h-px flex-1 bg-border" />
         </div>
 
@@ -145,7 +148,10 @@ export default function RegisterPage() {
         {/* Login Link */}
         <p className="mt-7 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="font-semibold text-[#d1234c] dark:text-[#f06a8f]">
+          <Link
+            href="/register"
+            className="font-semibold text-[#d1234c] dark:text-[#f06a8f]"
+          >
             Register
           </Link>
         </p>

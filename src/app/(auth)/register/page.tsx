@@ -23,7 +23,9 @@ export default function RegisterPage() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    console.log(user, "user register");
     if (!isPasswordValid) return;
 
     // Implement registration logic here.
@@ -59,6 +61,7 @@ export default function RegisterPage() {
               <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
 
               <input
+                name="name"
                 type="text"
                 placeholder="Enter your full name"
                 required
@@ -77,6 +80,7 @@ export default function RegisterPage() {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
 
               <input
+                name="email"
                 type="email"
                 placeholder="you@example.com"
                 required
@@ -95,6 +99,8 @@ export default function RegisterPage() {
               <Image className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
 
               <input
+                name="image"
+                required
                 type="url"
                 placeholder="https://example.com/photo.jpg"
                 className="w-full rounded-lg border border-border bg-transparent text-foreground placeholder:text-muted-foreground py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#d1234c] focus:ring-2 focus:ring-[#d1234c]/20"
@@ -112,6 +118,7 @@ export default function RegisterPage() {
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
 
               <input
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a strong password"
                 value={password}
@@ -128,7 +135,7 @@ export default function RegisterPage() {
                 {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
               </button>
             </div>
-            
+
             {password.length > 0 && !isPasswordValid && (
               <p className="mt-2 text-xs text-red-500">
                 Please meet all password requirements.
@@ -149,7 +156,9 @@ export default function RegisterPage() {
         {/* Divider */}
         <div className="my-6 flex items-center gap-4">
           <div className="h-px flex-1 bg-border" />
-          <span className="text-xs text-muted-foreground">OR CONTINUE WITH</span>
+          <span className="text-xs text-muted-foreground">
+            OR CONTINUE WITH
+          </span>
           <div className="h-px flex-1 bg-border" />
         </div>
 
@@ -199,7 +208,10 @@ export default function RegisterPage() {
         {/* Login Link */}
         <p className="mt-7 text-center text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link href="/login" className="font-semibold text-[#d1234c] dark:text-[#f06a8f]">
+          <Link
+            href="/login"
+            className="font-semibold text-[#d1234c] dark:text-[#f06a8f]"
+          >
             Login
           </Link>
         </p>

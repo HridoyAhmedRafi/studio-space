@@ -3,25 +3,38 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff, Mail, Lock, Clapperboard } from "lucide-react";
+import { signIn } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 export default function RegisterPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
 
-  const hasUppercase = /[A-Z]/.test(password);
-  const hasLowercase = /[a-z]/.test(password);
-  const hasMinLength = password.length >= 6;
-
-  const isPasswordValid = hasUppercase && hasLowercase && hasMinLength;
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
+    const user = Object.fromEntries(formData.entries()) as {
+      email: string;
+      password: string;
+    };
     console.log(user, "user login");
 
-    if (!isPasswordValid) return;
+    try {
+      const { data, error } = await signIn.email({
+        ...user,
+      });
 
-    // Implement registration logic here.
+      if (error) {
+        toast.error(error.message as string);
+      }
+      if (data) {
+        toast.success("Login successful!");
+        router.push("/");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
+      console.log("Something went wrong:", error);
+    }
   }
 
   return (
@@ -76,8 +89,6 @@ export default function RegisterPage() {
                 name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a strong password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full rounded-lg border border-border bg-transparent text-foreground placeholder:text-muted-foreground py-3 pl-11 pr-12 text-sm outline-none transition focus:border-[#d1234c] focus:ring-2 focus:ring-[#d1234c]/20"
               />
@@ -90,18 +101,11 @@ export default function RegisterPage() {
                 {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
               </button>
             </div>
-
-            {password.length > 0 && !isPasswordValid && (
-              <p className="mt-2 text-xs text-red-500">
-                Please meet all password requirements.
-              </p>
-            )}
           </div>
 
           {/* login Button */}
           <button
             type="submit"
-            disabled={!isPasswordValid}
             className="cursor-pointer w-full rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
           >
             Login Account

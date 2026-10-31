@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 
 import Navbar from "@/components/shared/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Script src="/theme-init.js" strategy="beforeInteractive" />
+        <Toaster />
         <Navbar></Navbar>
         <main>{children}</main>
       </body>

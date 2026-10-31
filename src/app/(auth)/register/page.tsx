@@ -11,7 +11,12 @@ import {
   Lock,
   Clapperboard,
 } from "lucide-react";
+import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 export default function RegisterPage() {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
 
@@ -21,14 +26,34 @@ export default function RegisterPage() {
 
   const isPasswordValid = hasUppercase && hasLowercase && hasMinLength;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      image: string;
+      password: string;
+    };
     console.log(user, "user register");
     if (!isPasswordValid) return;
 
-    // Implement registration logic here.
+    try {
+      const { data, error } = await signUp.email({
+        ...user,
+      });
+
+      if (error) {
+        toast.error(error.message as string);
+      }
+      if (data) {
+        toast.success("Registration successful! Please log in.");
+        router.push("/login");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
+      console.log("Something went wrong:", error);
+    }
   }
 
   return (

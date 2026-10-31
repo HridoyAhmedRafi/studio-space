@@ -27,7 +27,7 @@ const navLinkClass = (active: boolean) =>
     "rounded-md px-3 py-2 text-sm font-medium transition-colors",
     active
       ? "bg-[#d1234c]/10 text-[#d1234c] dark:bg-[#d1234c]/20 dark:text-[#f06a8f]"
-      : "text-black hover:bg-[#d1234c]/5 hover:text-[#d1234c] dark:text-white dark:hover:bg-[#d1234c]/10 dark:hover:text-[#f06a8f]",
+      : "text-foreground hover:bg-[#d1234c]/5 hover:text-[#d1234c] dark:text-white dark:hover:bg-[#d1234c]/10 dark:hover:text-[#f06a8f]",
   );
 
 const brandGhostClass =
@@ -42,7 +42,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-[#d1234c]/25">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur transition-colors supports-[backdrop-filter]:bg-background/80 dark:border-[#d1234c]/25">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link

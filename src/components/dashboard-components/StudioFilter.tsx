@@ -177,7 +177,7 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
           <h3 className="text-lg font-semibold">No Studios Found</h3>
 
           <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
-            We couldn't find any studios matching your search. Try another
+            We couldn&apos;t find any studios matching your search. Try another
             keyword or category.
           </p>
 

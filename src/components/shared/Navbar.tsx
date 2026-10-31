@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 import { Clapperboard, Menu, X } from "lucide-react";
 import { cn } from "cn";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import SessionButton from "../user-session/SessionButton";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -31,10 +32,10 @@ const navLinkClass = (active: boolean) =>
 
 const brandGhostClass =
   "hover:bg-[#d1234c]/10 hover:text-[#d1234c] dark:hover:bg-[#d1234c]/20 dark:hover:text-[#f06a8f]";
-const brandSolidClass =
-  "bg-[#d1234c] text-white shadow-sm shadow-[#d1234c]/25 hover:bg-[#d1234c]/90 focus-visible:border-[#d1234c] focus-visible:ring-[#d1234c]/30";
-const brandOutlineClass =
-  "border-black/20 bg-transparent hover:border-[#d1234c]/40 hover:bg-[#d1234c]/5 hover:text-[#d1234c] dark:border-white/20 dark:bg-transparent dark:hover:bg-[#d1234c]/10 dark:hover:text-[#f06a8f]";
+// const brandSolidClass =
+//   "bg-[#d1234c] text-white shadow-sm shadow-[#d1234c]/25 hover:bg-[#d1234c]/90 focus-visible:border-[#d1234c] focus-visible:ring-[#d1234c]/30";
+// const brandOutlineClass =
+//   "border-black/20 bg-transparent hover:border-[#d1234c]/40 hover:bg-[#d1234c]/5 hover:text-[#d1234c] dark:border-white/20 dark:bg-transparent dark:hover:bg-[#d1234c]/10 dark:hover:text-[#f06a8f]";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -82,21 +83,7 @@ const Navbar = () => {
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle className={brandGhostClass} />
-          <Link
-            href="/login"
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }),
-              brandGhostClass,
-            )}
-          >
-            Login
-          </Link>
-          <Link
-            href="/register"
-            className={cn(buttonVariants({ size: "sm" }), brandSolidClass)}
-          >
-            Register
-          </Link>
+          <SessionButton></SessionButton>
         </div>
 
         {/* Mobile actions */}
@@ -113,6 +100,7 @@ const Navbar = () => {
           >
             {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
           </Button>
+          <SessionButton />
         </div>
       </div>
 
@@ -143,28 +131,7 @@ const Navbar = () => {
             })}
 
             <div className="mt-3 flex flex-col gap-2 border-t border-[#d1234c]/15 pt-3 dark:border-[#d1234c]/25">
-              <Link
-                href="/login"
-                onClick={() => setMenuOpen(false)}
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "sm" }),
-                  "w-full",
-                  brandOutlineClass,
-                )}
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setMenuOpen(false)}
-                className={cn(
-                  buttonVariants({ size: "sm" }),
-                  brandSolidClass,
-                  "w-full",
-                )}
-              >
-                Register
-              </Link>
+              <SessionButton></SessionButton>
             </div>
           </nav>
         </div>

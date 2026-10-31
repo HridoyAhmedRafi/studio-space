@@ -24,7 +24,7 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
   } = listingData;
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:border-[#CD274E]/40 hover:shadow-md dark:border-gray-800 dark:bg-[#0F172A] dark:hover:border-[#CD274E]/40">
+    <div className="cursor-pointer group overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:border-[#CD274E]/40 hover:shadow-md dark:border-gray-800 dark:bg-[#0F172A] dark:hover:border-[#CD274E]/40">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-center">
         {/* Studio Image */}
         <div className="relative h-48 w-full shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 sm:h-44 lg:h-32 lg:w-44">

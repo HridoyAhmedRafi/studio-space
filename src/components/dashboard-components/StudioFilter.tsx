@@ -1,0 +1,193 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { Search, RotateCcw, SlidersHorizontal } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import StudioCard from "@/components/dashboard-components/StudioCard";
+import { IStudio } from "@/lib/studio-type";
+
+const categories = [
+  "All Studios",
+  "Photo Studio",
+  "Film Stage",
+  "Podcast Lounge",
+  "Music Suite",
+  "Workshop",
+  "Creative Space",
+];
+
+interface StudioFilterProps {
+  studios: IStudio[];
+}
+
+const StudioFilter = ({ studios }: StudioFilterProps) => {
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All Studios");
+
+  const filteredStudios = useMemo(() => {
+    let result = [...studios];
+
+    // Search Filter
+    if (search.trim()) {
+      const searchTerm = search.toLowerCase();
+
+      result = result.filter((studio) => {
+        const searchableText = [
+          studio.title,
+          studio.location,
+          studio.category,
+          studio.amenities,
+          studio.overview,
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        return searchableText.includes(searchTerm);
+      });
+    }
+
+    // Category Filter
+    if (category !== "All Studios") {
+      result = result.filter((studio) => studio.category === category);
+    }
+
+    return result;
+  }, [studios, search, category]);
+
+  const handleReset = () => {
+    setSearch("");
+    setCategory("All Studios");
+  };
+
+  return (
+    <div className=" space-y-8">
+      {/* Search Section */}
+      <div className="rounded-2xl border bg-card p-5 sm:p-7">
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold">Find Your Perfect Studio</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Search by studio name, location or available facilities.
+          </p>
+        </div>
+
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="What kind of creative space are you looking for?"
+            className="focus-visible:ring-1 h-12 rounded-xl pl-12 pr-12 focus-visible:ring-[#cd274e]"
+          />
+
+          {search && (
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+              aria-label="Clear search"
+            >
+              <RotateCcw className="size-4" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Category Section */}
+      <div className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <SlidersHorizontal className="size-4 text-[#cd274e]" />
+              <h3 className="font-semibold">Browse by Category</h3>
+            </div>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Choose a space that matches your creative needs.
+            </p>
+          </div>
+
+          {(search || category !== "All Studios") && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleReset}
+              className=" cursor-pointer text-[#cd274e] hover:text-[#b92144]"
+            >
+              <RotateCcw className="mr-2 size-3.5" />
+              Clear filters
+            </Button>
+          )}
+        </div>
+
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          {categories.map((item) => {
+            const isActive = category === item;
+
+            return (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setCategory(item)}
+                className={`cursor-pointer shrink-0 rounded-full border px-5 py-2.5 text-sm font-medium transition-all ${
+                  isActive
+                    ? "border-[#cd274e] bg-[#cd274e] text-white shadow-sm"
+                    : "border-border bg-background text-muted-foreground hover:border-[#cd274e]/50 hover:text-[#cd274e]"
+                }`}
+              >
+                {item}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Results Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
+        <div>
+          <h2 className="text-xl font-bold">
+            {category === "All Studios" ? "Available Studios" : category}
+          </h2>
+
+          <p className="mt-1 text-sm text-muted-foreground">
+            Explore spaces designed for your next project.
+          </p>
+        </div>
+
+        <p className="rounded-full bg-muted px-3 py-1.5 text-sm font-medium">
+          {filteredStudios.length}{" "}
+          {filteredStudios.length === 1 ? "Studio" : "Studios"} Found
+        </p>
+      </div>
+
+      {/* Studio Grid */}
+      {filteredStudios.length > 0 ? (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredStudios.map((studio) => (
+            <StudioCard key={studio._id} studio={studio} />
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-dashed py-20 text-center">
+          <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#cd274e]/10">
+            <Search className="size-6 text-[#cd274e]" />
+          </div>
+
+          <h3 className="text-lg font-semibold">No Studios Found</h3>
+
+          <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
+            We couldn't find any studios matching your search. Try another
+            keyword or category.
+          </p>
+
+          <Button onClick={handleReset} variant="outline" className="mt-5">
+            Clear Filters
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default StudioFilter;

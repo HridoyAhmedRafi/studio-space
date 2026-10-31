@@ -76,7 +76,7 @@ export default function SessionButton() {
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer rounded-lg p-0">
                 <Link
-                  href="/my-studio-listings"
+                  href="/my-listings"
                   className="flex w-full items-center gap-3 px-3 py-2.5 text-sm"
                 >
                   <Building2 className="size-4 text-muted-foreground" />

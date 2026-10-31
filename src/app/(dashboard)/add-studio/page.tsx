@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSession } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { redirect, useRouter } from "next/navigation";
 
 const categories = [
   "Photo Studio",
@@ -28,7 +30,6 @@ const categories = [
   "Music Suite",
   "Workshop",
   "Creative Space",
-  "Other",
 ];
 
 const amenities = [
@@ -47,15 +48,37 @@ const amenities = [
 ];
 
 export default function AddStudioForm() {
+  const router = useRouter();
   const { data: session } = useSession();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
+    const data = Object.fromEntries(formData.entries());
 
-    console.log(user);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-studio`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      const backendRes = await res.json();
+      console.log(backendRes, "backend response");
+      if (!res.ok) {
+        toast.error(backendRes.message);
+        return;
+      } else {
+        toast.success("Studio added successfully!");
+        router.push("/my-listings");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      console.error("Studio creation error:", error);
+    }
   }
 
   return (

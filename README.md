@@ -7,7 +7,7 @@ studios, while creators track every booking request from a personal dashboard.
 
 ## Live Site
 
-**URL:** http://localhost:3000
+**URL:** https://studio-space-three.vercel.app
 
 > Deployment note: replace the URL above with the production link once the app
 > is deployed.
@@ -37,16 +37,16 @@ studios, while creators track every booking request from a personal dashboard.
 
 ## Tech Stack
 
-| Layer      | Technology                                        |
-| ---------- | ------------------------------------------------- |
-| Framework  | Next.js 16.4.3 (App Router, Turbopack, React Compiler) |
-| UI         | React 19.3, Tailwind CSS v4, shadcn/ui, Base UI   |
-| Language   | TypeScript 5                                      |
-| Auth       | Better Auth + MongoDB adapter                     |
-| Database   | MongoDB                                           |
-| Feedback   | react-hot-toast                                   |
-| Icons      | lucide-react (custom inline SVG brand icons)      |
-| Linting    | ESLint 9 (eslint-config-next)                     |
+| Layer     | Technology                                             |
+| --------- | ------------------------------------------------------ |
+| Framework | Next.js 16.4.3 (App Router, Turbopack, React Compiler) |
+| UI        | React 19.3, Tailwind CSS v4, shadcn/ui, Base UI        |
+| Language  | TypeScript 5                                           |
+| Auth      | Better Auth + MongoDB adapter                          |
+| Database  | MongoDB                                                |
+| Feedback  | react-hot-toast                                        |
+| Icons     | lucide-react (custom inline SVG brand icons)           |
+| Linting   | ESLint 9 (eslint-config-next)                          |
 
 ## Local Setup
 

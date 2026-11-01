@@ -307,7 +307,7 @@ const Specification = ({
 
     <div className="min-w-0">
       <p className="text-xs text-muted-foreground">{label}</p>
-      <p className="mt-1 break-words text-sm font-semibold">{value}</p>
+      <p className="mt-1 wrap-break-words text-sm font-semibold">{value}</p>
     </div>
   </div>
 );

@@ -4,12 +4,12 @@ import {
   Users,
   Wallet,
   ExternalLink,
-  Pencil,
   Trash2,
   Clapperboard,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import EditListing from "./EditListing";
 
 const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
   const {
@@ -93,20 +93,13 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
               <ExternalLink size={16} />
             </Link>
 
-            <Link
-              href={`/dashboard/edit-studio/${_id}`}
-              title="Edit Studio"
-              aria-label="Edit Studio"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue-500/10 dark:hover:text-blue-400"
-            >
-              <Pencil size={16} />
-            </Link>
+            <EditListing studio={listingData} />
 
             <button
               type="button"
               title="Delete Studio"
               aria-label="Delete Studio"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-red-300 hover:bg-red-50 hover:text-red-600 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400"
+              className="cursor-pointer flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-red-300 hover:bg-red-50 hover:text-red-600 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400"
             >
               <Trash2 size={16} />
             </button>

@@ -2,11 +2,11 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { ArrowRight, CalendarCheck2, CalendarX2, LogIn } from "lucide-react";
 
-import BookingCard from "@/components/dashboard-components/BookingCard";
+import BookingCard from "@/components/dashboard-components/my-booking/BookingCard";
 import EmptyState from "@/components/shared/EmptyState";
 import { auth } from "@/lib/auth";
-import { IBooking } from "@/lib/booking-type";
-import { IStudio } from "@/lib/studio-type";
+import { IBooking } from "@/types/booking-type";
+import { IStudio } from "@/types/studio-type";
 
 const MyBookingsPage = async () => {
   const session = await auth.api.getSession({

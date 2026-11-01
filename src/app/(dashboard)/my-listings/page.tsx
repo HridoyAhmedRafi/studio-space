@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { IStudio } from "@/lib/studio-type";
+import { IStudio } from "@/types/studio-type";
 import { headers } from "next/headers";
 import Link from "next/link";
 import {
@@ -9,7 +9,7 @@ import {
   LockKeyhole,
   TriangleAlert,
 } from "lucide-react";
-import MyListingCard from "@/components/dashboard-components/MyListingCard";
+import MyListingCard from "@/components/dashboard-components/my-listing/MyListingCard";
 import EmptyState from "@/components/shared/EmptyState";
 
 const MyStudioListings = async () => {

@@ -9,8 +9,8 @@ import {
   type LucideProps,
 } from "lucide-react";
 
-import { IStudio } from "@/lib/studio-type";
-import { StudioCategory } from "@/lib/studio-categories";
+import { IStudio } from "@/types/studio-type";
+import { StudioCategory } from "@/types/studio-categories";
 
 interface CategoryCard {
   label: string;
@@ -63,7 +63,8 @@ const categoryCards: CategoryCard[] = [
     description:
       "Ceramic kilns, pottery wheels, printmaking presses, and raw maker space.",
     icon: Palette,
-    iconClassName: "bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400",
+    iconClassName:
+      "bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400",
   },
 ];
 

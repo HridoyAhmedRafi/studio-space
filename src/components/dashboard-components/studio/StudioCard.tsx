@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { IStudio } from "@/lib/studio-type";
+import { IStudio } from "@/types/studio-type";
 
 const StudioCard = ({ studio }: { studio: IStudio }) => {
   return (

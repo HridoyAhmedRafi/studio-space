@@ -1,9 +1,9 @@
 import React from "react";
 import { Clapperboard } from "lucide-react";
 
-import StudioCard from "../dashboard-components/StudioCard";
+import StudioCard from "../dashboard-components/studio/StudioCard";
 import EmptyState from "@/components/shared/EmptyState";
-import { IStudio } from "@/lib/studio-type";
+import { IStudio } from "@/types/studio-type";
 
 const FeaturedSection = async () => {
   const res = await fetch(

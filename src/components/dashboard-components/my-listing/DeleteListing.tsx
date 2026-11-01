@@ -4,15 +4,17 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, Trash2 } from "lucide-react";
 import { toastError, toastSuccess } from "@/lib/toast";
-import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+// import { Button } from "../ui/button";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogFooter,
+//   DialogHeader,
+//   DialogTitle,
+// } from "../ui/dialog";
 
 interface DeleteListingProps {
   studioId: string;

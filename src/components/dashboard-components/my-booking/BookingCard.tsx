@@ -11,8 +11,8 @@ import {
   MapPin,
 } from "lucide-react";
 
-import { IBooking } from "@/lib/booking-type";
-import { IStudio } from "@/lib/studio-type";
+import { IBooking } from "@/types/booking-type";
+import { IStudio } from "@/types/studio-type";
 import { toastError, toastSuccess } from "@/lib/toast";
 import { useState } from "react";
 
@@ -76,8 +76,9 @@ const BookingCard = ({
   booking: IBooking;
   studio?: IStudio;
 }) => {
-  const [currentStatus, setCurrentStatus] =
-    useState<BookingStatus>(booking.status);
+  const [currentStatus, setCurrentStatus] = useState<BookingStatus>(
+    booking.status,
+  );
   const [cancelling, setCancelling] = useState(false);
 
   const handleCancelBooking = async () => {

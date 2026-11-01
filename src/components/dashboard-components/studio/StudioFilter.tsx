@@ -7,13 +7,13 @@ import { Search, RotateCcw, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import EmptyState from "@/components/shared/EmptyState";
-import StudioCard from "@/components/dashboard-components/StudioCard";
+import StudioCard from "@/components/dashboard-components/studio/StudioCard";
 import {
   ALL_STUDIOS,
   isStudioCategory,
   STUDIO_CATEGORIES,
-} from "@/lib/studio-categories";
-import { IStudio } from "@/lib/studio-type";
+} from "@/types/studio-categories";
+import { IStudio } from "@/types/studio-type";
 
 const categories: string[] = [ALL_STUDIOS, ...STUDIO_CATEGORIES];
 

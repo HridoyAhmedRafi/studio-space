@@ -11,9 +11,9 @@ import {
   Mail,
 } from "lucide-react";
 
-import { IStudio } from "@/lib/studio-type";
-import StudioGallery from "@/components/dashboard-components/StudioGallery";
-import BookingModal from "@/components/dashboard-components/BookingModal";
+import { IStudio } from "@/types/studio-type";
+import StudioGallery from "@/components/dashboard-components/studio/StudioGallery";
+import BookingModal from "@/components/dashboard-components/my-booking/BookingModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 

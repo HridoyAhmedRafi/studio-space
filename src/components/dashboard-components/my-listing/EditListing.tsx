@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { IStudio } from "@/lib/studio-type";
+import { IStudio } from "@/types/studio-type";
 import { LoaderCircle, Pencil } from "lucide-react";
 import { toastError, toastSuccess } from "@/lib/toast";
 

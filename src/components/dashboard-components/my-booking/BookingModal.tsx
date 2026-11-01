@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { CalendarDays, Clock, LoaderCircle, Users } from "lucide-react";
 
 import { useSession } from "@/lib/auth-client";
-import { IStudio } from "@/lib/studio-type";
+import { IStudio } from "@/types/studio-type";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

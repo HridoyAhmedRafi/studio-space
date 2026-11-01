@@ -1,4 +1,4 @@
-import StudioFilter from "@/components/dashboard-components/StudioFilter";
+import StudioFilter from "@/components/dashboard-components/studio/StudioFilter";
 
 const ExploreStudioPage = async ({
   searchParams,

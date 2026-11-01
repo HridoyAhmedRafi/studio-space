@@ -1,4 +1,4 @@
-import { IStudio } from "@/lib/studio-type";
+import { IStudio } from "@/types/studio-type";
 import {
   MapPin,
   Users,

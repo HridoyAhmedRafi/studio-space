@@ -8,7 +8,7 @@ import {
   XIcon,
   YouTubeIcon,
 } from "@/components/shared/SocialIcons";
-import { POPULAR_CATEGORY_LINKS } from "@/lib/studio-categories";
+import { POPULAR_CATEGORY_LINKS } from "@/types/studio-categories";
 
 const quickLinks = [
   { label: "Home", href: "/" },

@@ -143,7 +143,7 @@ export const StudioDetailsSkeleton = () => (
 
     <div className="mt-5 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
       <div className="space-y-6">
-        <Skeleton className="h-80 w-full rounded-2xl sm:h-[26rem]" />
+        <Skeleton className="h-80 w-full rounded-2xl sm:h-104" />
 
         <div className="grid grid-cols-4 gap-3">
           {Array.from({ length: 4 }, (_, index) => (

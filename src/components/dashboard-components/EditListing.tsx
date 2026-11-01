@@ -135,7 +135,7 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
 
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-[#CD274E]">
+          <DialogTitle className="text-2xl font-bold text-[#d1234c]">
             Update Studio Listing
           </DialogTitle>
 
@@ -356,7 +356,7 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
                   type="submit"
                   disabled={loading}
                   aria-busy={loading}
-                  className="cursor-pointer gap-2 bg-[#CD274E] text-white hover:bg-[#b92144]"
+                  className="cursor-pointer gap-2 bg-[#d1234c] text-white hover:bg-[#b51f43]"
                 >
                   {loading && <LoaderCircle className="size-4 animate-spin" />}
                   {loading ? "Updating..." : "Save Changes"}

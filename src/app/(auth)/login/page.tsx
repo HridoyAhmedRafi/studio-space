@@ -2,9 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, LoaderCircle, Mail, Lock, Clapperboard } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  LoaderCircle,
+  Mail,
+  Lock,
+  Clapperboard,
+} from "lucide-react";
 import { signIn } from "@/lib/auth-client";
-import { dismissToast, toastError, toastLoading, toastSuccess } from "@/lib/toast";
+import {
+  dismissToast,
+  toastError,
+  toastLoading,
+  toastSuccess,
+} from "@/lib/toast";
 import { useRouter } from "next/navigation";
 export default function RegisterPage() {
   const router = useRouter();
@@ -100,9 +112,14 @@ export default function RegisterPage() {
 
           {/* Password */}
           <div>
-            <label className="mb-1 block text-sm font-bold text-foreground">
-              Password
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="mb-1 block text-sm font-bold text-foreground">
+                Password
+              </label>
+              <label className="text-[#d1234c] mb-1 block text-sm font-bold ">
+                Forgot Password?
+              </label>
+            </div>
 
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />

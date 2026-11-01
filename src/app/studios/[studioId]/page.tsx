@@ -68,11 +68,11 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
   const reviews = studio.reviews ?? [];
 
   return (
-    <main className="mx-auto max-w-7xl space-y-8 px-4 py-8">
+    <main className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
       {/* Back Navigation */}
       <Link
         href="/studios"
-        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-[#cd274e]"
+        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-[#d1234c]"
       >
         <ArrowLeft className="size-4" />
         Back to Studios
@@ -90,7 +90,7 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
           {/* Studio Heading */}
           <section className="space-y-4 border-b pb-7">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-[#cd274e]/10 px-3 py-1 text-xs font-semibold text-[#cd274e]">
+              <span className="rounded-full bg-[#d1234c]/10 px-3 py-1 text-xs font-semibold text-[#d1234c]">
                 {studio.category}
               </span>
 
@@ -105,7 +105,7 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
             </h1>
 
             <p className="flex items-center gap-2 text-sm text-muted-foreground">
-              <MapPin className="size-4 text-[#cd274e]" />
+              <MapPin className="size-4 text-[#d1234c]" />
               {studio.location}
             </p>
 
@@ -166,7 +166,7 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
                     key={`${amenity}-${index}`}
                     className="flex items-center gap-3 rounded-xl border p-4"
                   >
-                    <CheckCircle2 className="size-4 shrink-0 text-[#cd274e]" />
+                    <CheckCircle2 className="size-4 shrink-0 text-[#d1234c]" />
                     <span className="text-sm font-medium">{amenity}</span>
                   </div>
                 ))}
@@ -188,7 +188,7 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 rounded-xl border p-5">
-              <div className="flex size-14 items-center justify-center rounded-full bg-[#cd274e]/10 text-xl font-bold text-[#cd274e]">
+              <div className="flex size-14 items-center justify-center rounded-full bg-[#d1234c]/10 text-xl font-bold text-[#d1234c]">
                 {user?.image ? (
                   <Image
                     src={user.image}
@@ -301,7 +301,7 @@ const Specification = ({
   value: string;
 }) => (
   <div className="flex items-center gap-4 rounded-xl border p-4">
-    <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#cd274e]/10 text-[#cd274e]">
+    <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#d1234c]/10 text-[#d1234c]">
       {icon}
     </div>
 

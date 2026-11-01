@@ -19,7 +19,7 @@ interface EmptyStateProps {
 
 const actionClass = (variant: "primary" | "secondary", className?: string) =>
   cn(
-    "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors",
+    "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors",
     variant === "primary"
       ? "bg-[#d1234c] text-white hover:bg-[#b51f43]"
       : "border border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-transparent dark:text-gray-300 dark:hover:bg-gray-800",

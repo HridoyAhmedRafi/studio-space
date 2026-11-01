@@ -62,7 +62,7 @@ const NewsletterForm = () => {
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="h-11 shrink-0 gap-2 rounded-xl bg-[#d1234c] px-4 font-semibold text-white transition-colors hover:bg-[#b51f43]"
+        className="h-11 shrink-0 gap-2 rounded-lg bg-[#d1234c] px-4 font-semibold text-white transition-colors hover:bg-[#b51f43]"
       >
         {submitting ? (
           <LoaderCircle className="size-4 animate-spin" />

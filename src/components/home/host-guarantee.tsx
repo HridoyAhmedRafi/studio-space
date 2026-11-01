@@ -51,7 +51,7 @@ const HostGuarantee = () => {
           </span>
           <h2
             id="host-guarantee-heading"
-            className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl"
+            className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl"
           >
             Protected at every step — for hosts and creators
           </h2>

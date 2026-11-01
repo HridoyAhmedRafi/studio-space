@@ -25,7 +25,7 @@ const DashboardNotFound = () => {
         <div className="mt-7 flex flex-col items-center justify-center gap-2 sm:flex-row">
           <Link
             href="/my-bookings"
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#d1234c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#b51f43] sm:w-auto"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#d1234c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#b51f43] sm:w-auto"
           >
             <CalendarDays className="size-4" />
             My Bookings
@@ -33,7 +33,7 @@ const DashboardNotFound = () => {
 
           <Link
             href="/studios"
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-5 text-sm font-semibold text-gray-600 transition-colors hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-transparent dark:text-gray-300 dark:hover:bg-gray-800 sm:w-auto"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 text-sm font-semibold text-gray-600 transition-colors hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-transparent dark:text-gray-300 dark:hover:bg-gray-800 sm:w-auto"
           >
             Browse Studios
             <ArrowRight className="size-4" />

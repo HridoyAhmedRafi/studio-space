@@ -106,7 +106,7 @@ const StudioFilter = ({ studios, initialCategory }: StudioFilterProps) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="What kind of creative space are you looking for?"
-            className="focus-visible:ring-1 h-12 rounded-xl pl-12 pr-12 focus-visible:ring-[#cd274e]"
+            className="focus-visible:ring-1 h-12 rounded-xl pl-12 pr-12 focus-visible:ring-[#d1234c]"
           />
 
           {search && (
@@ -126,7 +126,7 @@ const StudioFilter = ({ studios, initialCategory }: StudioFilterProps) => {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="size-4 text-[#cd274e]" />
+              <SlidersHorizontal className="size-4 text-[#d1234c]" />
               <h3 className="font-semibold">Browse by Category</h3>
             </div>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -139,7 +139,7 @@ const StudioFilter = ({ studios, initialCategory }: StudioFilterProps) => {
               variant="ghost"
               size="sm"
               onClick={handleReset}
-              className=" cursor-pointer text-[#cd274e] hover:text-[#b92144]"
+              className=" cursor-pointer text-[#d1234c] hover:text-[#b51f43]"
             >
               <RotateCcw className="mr-2 size-3.5" />
               Clear filters
@@ -158,8 +158,8 @@ const StudioFilter = ({ studios, initialCategory }: StudioFilterProps) => {
                 onClick={() => handleCategoryChange(item)}
                 className={`cursor-pointer shrink-0 rounded-full border px-5 py-2.5 text-sm font-medium transition-all ${
                   isActive
-                    ? "border-[#cd274e] bg-[#cd274e] text-white shadow-sm"
-                    : "border-border bg-background text-muted-foreground hover:border-[#cd274e]/50 hover:text-[#cd274e]"
+                    ? "border-[#d1234c] bg-[#d1234c] text-white shadow-sm"
+                    : "border-border bg-background text-muted-foreground hover:border-[#d1234c]/50 hover:text-[#d1234c]"
                 }`}
               >
                 {item}

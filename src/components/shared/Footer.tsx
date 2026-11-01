@@ -54,11 +54,11 @@ const Footer = () => {
               className="group flex w-fit items-center gap-2.5"
               aria-label="StudioSpace home"
             >
-              <span className="flex size-9 items-center justify-center rounded-lg bg-[#d1234c] text-white shadow-sm shadow-[#d1234c]/30 transition-transform group-hover:scale-105">
-                <Clapperboard className="size-4.5" />
+              <span className="flex size-8 items-center justify-center rounded-lg bg-[#d1234c] text-white shadow-sm shadow-[#d1234c]/30 transition-transform group-hover:scale-105">
+                <Clapperboard className="size-4" />
               </span>
 
-              <span className="text-lg font-semibold tracking-tight">
+              <span className="text-base font-semibold tracking-tight">
                 Studio
                 <span className="text-[#d1234c] dark:text-[#f06a8f]">
                   Space

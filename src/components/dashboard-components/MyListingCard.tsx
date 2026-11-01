@@ -24,7 +24,7 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
   } = listingData;
 
   return (
-    <div className="cursor-pointer group overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:border-[#CD274E]/40 hover:shadow-md dark:border-gray-800 dark:bg-[#0F172A] dark:hover:border-[#CD274E]/40">
+    <div className="cursor-pointer group overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:border-[#d1234c]/40 hover:shadow-md dark:border-gray-800 dark:bg-[#0F172A] dark:hover:border-[#d1234c]/40">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-center">
         {/* Studio Image */}
         <div className="relative h-48 w-full shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 sm:h-44 lg:h-32 lg:w-44">
@@ -41,18 +41,18 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
         {/* Studio Information */}
         <div className="min-w-0 flex-1">
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-[#CD274E]/10 px-2.5 py-1 text-xs font-semibold text-[#CD274E] dark:bg-[#CD274E]/15 dark:text-[#F47291]">
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-[#d1234c]/10 px-2.5 py-1 text-xs font-semibold text-[#d1234c] dark:bg-[#d1234c]/15 dark:text-[#F47291]">
               <Clapperboard size={13} />
               {category}
             </span>
           </div>
 
-          <h3 className="line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#CD274E] dark:text-white dark:group-hover:text-[#F47291]">
+          <h3 className="line-clamp-2 text-lg font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#d1234c] dark:text-white dark:group-hover:text-[#F47291]">
             {title}
           </h3>
 
           <p className="mt-2 flex items-start gap-1.5 text-sm text-gray-500 dark:text-gray-400">
-            <MapPin size={15} className="mt-0.5 shrink-0 text-[#CD274E]" />
+            <MapPin size={15} className="mt-0.5 shrink-0 text-[#d1234c]" />
             <span className="line-clamp-1">{location}</span>
           </p>
 
@@ -76,7 +76,7 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
             </p>
 
             <div className="flex items-baseline gap-0.5 lg:justify-end">
-              <span className="text-2xl font-bold tracking-tight text-[#CD274E] dark:text-[#F47291]">
+              <span className="text-2xl font-bold tracking-tight text-[#d1234c] dark:text-[#F47291]">
                 ${hourlyRate}
               </span>
               <span className="text-sm font-medium text-gray-400">/hr</span>
@@ -88,14 +88,14 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
               href={`/studios/${_id}`}
               title="View Studio"
               aria-label="View Studio"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-[#CD274E]/40 hover:bg-[#CD274E]/10 hover:text-[#CD274E] dark:border-gray-700 dark:text-gray-400 dark:hover:bg-[#CD274E]/15 dark:hover:text-[#F47291]"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-[#d1234c]/40 hover:bg-[#d1234c]/10 hover:text-[#d1234c] dark:border-gray-700 dark:text-gray-400 dark:hover:bg-[#d1234c]/15 dark:hover:text-[#F47291]"
             >
               <ExternalLink size={16} />
             </Link>
 
             <EditListing studio={listingData} />
 
-            <DeleteListing studioId={listingData._id} />
+            <DeleteListing studioId={listingData._id} studioTitle={title} />
           </div>
         </div>
       </div>

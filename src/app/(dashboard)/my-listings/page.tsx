@@ -65,7 +65,7 @@ const MyStudioListings = async () => {
         {/* Page Header */}
         <div className="mb-9 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#CD274E]/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#CD274E] dark:bg-[#CD274E]/15 dark:text-[#F47291]">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#d1234c]/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#d1234c] dark:bg-[#d1234c]/15 dark:text-[#F47291]">
               <LayoutGrid size={14} />
               Host Workspace
             </div>
@@ -81,7 +81,7 @@ const MyStudioListings = async () => {
 
           <Link
             href="/add-studio"
-            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-[#CD274E] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#B51F43] hover:shadow-md"
+            className="inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-[#d1234c] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#b51f43] hover:shadow-md"
           >
             <Plus size={18} strokeWidth={2.5} />
             Add New Studio
@@ -90,7 +90,7 @@ const MyStudioListings = async () => {
 
         <div className="mb-6 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-5 py-4 dark:border-gray-800 dark:bg-[#0F172A]">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#CD274E]/10 text-[#CD274E] dark:bg-[#CD274E]/15 dark:text-[#F47291]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#d1234c]/10 text-[#d1234c] dark:bg-[#d1234c]/15 dark:text-[#F47291]">
               <Building2 size={20} />
             </div>
 

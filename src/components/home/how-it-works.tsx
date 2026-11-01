@@ -56,7 +56,7 @@ const HowItWorks = () => {
           </span>
           <h2
             id="how-it-works-heading"
-            className=" mt-3 text-3xl font-semibold tracking-tight sm:text-4xl"
+            className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl"
           >
             From idea to shoot in four simple steps
           </h2>

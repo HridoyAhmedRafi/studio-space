@@ -91,12 +91,12 @@ export default function AddStudioForm() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-10">
+    <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold sm:text-3xl text-[#cd274e]">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           Add New Studio
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-2 text-sm text-muted-foreground">
           List your creative space for other creators.
         </p>
       </div>
@@ -291,7 +291,7 @@ export default function AddStudioForm() {
                 type="submit"
                 disabled={submitting}
                 aria-busy={submitting}
-                className="cursor-pointer gap-2 bg-[#cd274e] text-white hover:bg-[#b92144]"
+                className="cursor-pointer gap-2 bg-[#d1234c] text-white hover:bg-[#b51f43]"
               >
                 {submitting && <LoaderCircle className="size-4 animate-spin" />}
                 {submitting ? "Creating..." : "Create Studio Listing"}

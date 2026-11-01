@@ -5,16 +5,28 @@ import { useRouter } from "next/navigation";
 import { LoaderCircle, Trash2 } from "lucide-react";
 import { toastError, toastSuccess } from "@/lib/toast";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 interface DeleteListingProps {
   studioId: string;
+  studioTitle?: string;
 }
 
-const DeleteListing = ({ studioId }: DeleteListingProps) => {
+const DeleteListing = ({ studioId, studioTitle }: DeleteListingProps) => {
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleDelete = async () => {
+    if (loading) return;
+
     try {
       setLoading(true);
 
@@ -33,6 +45,7 @@ const DeleteListing = ({ studioId }: DeleteListingProps) => {
       }
 
       toastSuccess("Studio deleted successfully.");
+      setOpen(false);
       router.refresh();
     } catch (error) {
       console.error("Error deleting studio:", error);
@@ -43,22 +56,76 @@ const DeleteListing = ({ studioId }: DeleteListingProps) => {
   };
 
   return (
-    <Button
-      className="cursor-pointer"
-      variant="destructive"
-      type="button"
-      onClick={handleDelete}
-      disabled={loading}
-      aria-busy={loading}
-      title="Delete Studio"
-      aria-label="Delete Studio"
-    >
-      {loading ? (
-        <LoaderCircle className="size-4 animate-spin" />
-      ) : (
+    <>
+      <Button
+        className="cursor-pointer"
+        variant="destructive"
+        type="button"
+        onClick={() => setOpen(true)}
+        disabled={loading}
+        title="Delete Studio"
+        aria-label="Delete Studio"
+      >
         <Trash2 size={16} />
-      )}
-    </Button>
+      </Button>
+
+      <Dialog
+        open={open}
+        onOpenChange={(next) => {
+          // Keep the dialog open while the request is in flight.
+          if (!loading) setOpen(next);
+        }}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-1 flex size-12 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-500/15 dark:text-red-400">
+              <Trash2 size={22} />
+            </div>
+
+            <DialogTitle className="text-center text-xl">
+              Delete this studio?
+            </DialogTitle>
+
+            <DialogDescription className="text-center leading-6">
+              {studioTitle ? (
+                <>
+                  You&apos;re about to permanently delete{" "}
+                  <span className="font-semibold text-foreground">
+                    &quot;{studioTitle}&quot;
+                  </span>
+                  . This action can&apos;t be undone.
+                </>
+              ) : (
+                "This will permanently remove the studio listing. This action can't be undone."
+              )}
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter showCloseButton={false}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              disabled={loading}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleDelete}
+              disabled={loading}
+              aria-busy={loading}
+              className="gap-2"
+            >
+              {loading && <LoaderCircle className="size-4 animate-spin" />}
+              {loading ? "Deleting..." : "Delete Studio"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

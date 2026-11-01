@@ -94,11 +94,11 @@ const CategorySection = async () => {
   const counts = await getCategoryCounts();
 
   return (
-    <section className="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:py-20">
+    <section className="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       {/* Section Header */}
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#d1234c]">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#d1234c] dark:text-[#f06a8f]">
             Curated Production Categories
           </p>
 
@@ -109,7 +109,7 @@ const CategorySection = async () => {
 
         <Link
           href="/studios"
-          className="group inline-flex items-center gap-2 text-sm font-semibold text-[#d1234c] transition-colors hover:text-[#b51f43]"
+          className="group inline-flex items-center gap-2 text-sm font-semibold text-[#d1234c] transition-colors hover:text-[#b51f43] dark:text-[#f06a8f] dark:hover:text-[#f47291]"
         >
           Explore All Workspaces
           <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />

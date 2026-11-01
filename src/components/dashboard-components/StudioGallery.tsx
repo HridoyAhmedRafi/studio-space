@@ -82,7 +82,7 @@ const StudioGallery = ({
               aria-label={`View image ${index + 1}`}
               className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-lg border-2 transition ${
                 activeIndex === index
-                  ? "border-[#cd274e]"
+                  ? "border-[#d1234c]"
                   : "border-transparent opacity-70 hover:opacity-100"
               }`}
             >

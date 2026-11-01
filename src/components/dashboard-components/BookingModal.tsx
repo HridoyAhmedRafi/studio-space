@@ -169,7 +169,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
     <>
       <Button
         onClick={handleBookClick}
-        className="cursor-pointer h-12 w-full bg-[#cd274e] font-semibold text-white hover:bg-[#b92144]"
+        className="cursor-pointer h-12 w-full bg-[#d1234c] font-semibold text-white hover:bg-[#b51f43]"
       >
         Book Workspace Now
       </Button>
@@ -195,7 +195,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
           <form onSubmit={handleBooking} className="space-y-5">
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium">
-                <CalendarDays className="size-4 text-[#cd274e]" />
+                <CalendarDays className="size-4 text-[#d1234c]" />
                 Booking Date
               </label>
 
@@ -205,14 +205,14 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
                 value={bookingDate}
                 onChange={(e) => setBookingDate(e.target.value)}
                 required
-                className="h-11 focus-visible:ring-2 focus-visible:ring-[#cd274e]"
+                className="h-11 focus-visible:ring-2 focus-visible:ring-[#d1234c]"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-medium">
-                  <Clock className="size-4 text-[#cd274e]" />
+                  <Clock className="size-4 text-[#d1234c]" />
                   Start Time
                 </label>
 
@@ -221,13 +221,13 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
                   value={startTime}
                   onChange={(e) => setStartTime(e.target.value)}
                   required
-                  className="h-11 focus-visible:ring-2 focus-visible:ring-[#cd274e]"
+                  className="h-11 focus-visible:ring-2 focus-visible:ring-[#d1234c]"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-medium">
-                  <Clock className="size-4 text-[#cd274e]" />
+                  <Clock className="size-4 text-[#d1234c]" />
                   End Time
                 </label>
 
@@ -237,7 +237,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
                   value={endTime}
                   onChange={(e) => setEndTime(e.target.value)}
                   required
-                  className="h-11 focus-visible:ring-2 focus-visible:ring-[#cd274e]"
+                  className="h-11 focus-visible:ring-2 focus-visible:ring-[#d1234c]"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
 
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium">
-                <Users className="size-4 text-[#cd274e]" />
+                <Users className="size-4 text-[#d1234c]" />
                 Number of Guests
               </label>
 
@@ -261,7 +261,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
                 value={guestCount}
                 onChange={(e) => setGuestCount(e.target.value)}
                 required
-                className="h-11 focus-visible:ring-2 focus-visible:ring-[#cd274e]"
+                className="h-11 focus-visible:ring-2 focus-visible:ring-[#d1234c]"
               />
 
               <p className="text-xs text-muted-foreground">
@@ -279,7 +279,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tell the host about your requirements..."
                 rows={3}
-                className="resize-none focus-visible:ring-2 focus-visible:ring-[#cd274e]"
+                className="resize-none focus-visible:ring-2 focus-visible:ring-[#d1234c]"
               />
             </div>
 
@@ -300,7 +300,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
 
               <div className="flex justify-between border-t pt-3 font-bold">
                 <span>Estimated Total</span>
-                <span className="text-[#cd274e]">
+                <span className="text-[#d1234c]">
                   ${totalAmount + securityDeposit}
                 </span>
               </div>
@@ -315,7 +315,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
               type="submit"
               disabled={loading}
               aria-busy={loading}
-              className="cursor-pointer h-12 w-full gap-2 bg-[#cd274e] font-semibold text-white hover:bg-[#b92144]"
+              className="cursor-pointer h-12 w-full gap-2 bg-[#d1234c] font-semibold text-white hover:bg-[#b51f43]"
             >
               {loading && <LoaderCircle className="size-4 animate-spin" />}
               {loading ? "Submitting Request..." : "Confirm Booking Request"}

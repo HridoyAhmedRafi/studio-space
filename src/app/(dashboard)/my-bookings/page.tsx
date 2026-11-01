@@ -81,7 +81,7 @@ const MyBookingsPage = async () => {
 
           <Link
             href="/studios"
-            className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-[#d1234c] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#b51f43] hover:shadow-md"
+            className="inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-[#d1234c] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#b51f43] hover:shadow-md"
           >
             Explore More Studios
             <ArrowRight size={18} strokeWidth={2.5} />

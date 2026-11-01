@@ -6,7 +6,7 @@ import { IStudio } from "@/lib/studio-type";
 
 const StudioCard = ({ studio }: { studio: IStudio }) => {
   return (
-    <div className=" group cursor-pointer overflow-hidden rounded-xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#d1234c]">
+    <div className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#d1234c]">
       {/* Image */}
       <div className="relative h-56 overflow-hidden">
         <Image
@@ -17,13 +17,13 @@ const StudioCard = ({ studio }: { studio: IStudio }) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 
-        <Badge className="absolute left-3 top-3 border-0 bg-white text-[#cd274e] hover:bg-white">
+        <Badge className="absolute left-3 top-3 border-0 bg-white text-[#d1234c] hover:bg-white">
           {studio.category}
         </Badge>
       </div>
 
       {/* Content */}
-      <div className="space-y-4 p-5">
+      <div className="flex flex-1 flex-col gap-4 p-5">
         <div>
           <h3 className="line-clamp-1 text-lg font-semibold">{studio.title}</h3>
 
@@ -33,10 +33,10 @@ const StudioCard = ({ studio }: { studio: IStudio }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between border-t pt-4">
+        <div className="mt-auto flex items-center justify-between border-t pt-4">
           <div>
             <p className="text-xs text-muted-foreground">Hourly rate</p>
-            <p className="text-xl font-bold text-[#cd274e]">
+            <p className="text-xl font-bold text-[#d1234c]">
               ${studio.hourlyRate}
               <span className="text-sm font-normal text-muted-foreground">
                 /hr
@@ -46,7 +46,7 @@ const StudioCard = ({ studio }: { studio: IStudio }) => {
 
           <Link
             href={`/studios/${studio._id}`}
-            className="inline-flex h-9 items-center justify-center gap-1 rounded-md bg-[#cd274e] px-4 text-sm font-medium text-white transition-colors hover:bg-[#b92144]"
+            className="inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-[#d1234c] px-4 text-sm font-medium text-white transition-colors hover:bg-[#b51f43]"
           >
             View Details
             <ArrowUpRight className="size-4" />

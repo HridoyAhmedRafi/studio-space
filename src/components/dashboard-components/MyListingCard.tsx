@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import EditListing from "./EditListing";
+import DeleteListing from "./DeleteListing";
 
 const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
   const {
@@ -95,14 +96,7 @@ const MyListingCard = ({ listingData }: { listingData: IStudio }) => {
 
             <EditListing studio={listingData} />
 
-            <button
-              type="button"
-              title="Delete Studio"
-              aria-label="Delete Studio"
-              className="cursor-pointer flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-red-300 hover:bg-red-50 hover:text-red-600 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-red-500/10 dark:hover:text-red-400"
-            >
-              <Trash2 size={16} />
-            </button>
+            <DeleteListing studioId={listingData._id} />
           </div>
         </div>
       </div>

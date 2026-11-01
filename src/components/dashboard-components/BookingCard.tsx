@@ -53,15 +53,12 @@ const getStatus = (value: string) => {
   );
 
   const resolved = key ?? "Pending";
-
   return { key: resolved, ...statusStyles[resolved] };
 };
 
 const formatDate = (value: string) => {
   if (!value) return "";
-
   const [year, month, day] = value.split("-").map(Number);
-
   if (!year || !month || !day) return value;
 
   return new Date(year, month - 1, day).toLocaleDateString("en-US", {
@@ -131,7 +128,6 @@ const BookingCard = ({
         )}
       </div>
 
-      {/* Booking Details */}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <span
@@ -180,7 +176,6 @@ const BookingCard = ({
         )}
       </div>
 
-      {/* Payment & Actions */}
       <div className="flex shrink-0 items-center justify-between gap-4 border-t border-gray-100 pt-4 dark:border-gray-800 sm:flex-col sm:items-end sm:justify-center sm:border-l sm:border-t-0 sm:py-1 sm:pl-5 sm:pt-0">
         <div className="sm:text-right">
           <p className="text-[11px] font-medium uppercase tracking-wide text-gray-400 dark:text-gray-500">

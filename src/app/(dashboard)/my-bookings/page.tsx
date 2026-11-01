@@ -9,7 +9,7 @@ import { IStudio } from "@/lib/studio-type";
 
 const MyBookingsPage = async () => {
   const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
+    headers: await headers(),
   });
 
   const user = session?.user;
@@ -87,7 +87,6 @@ const MyBookingsPage = async () => {
           </Link>
         </div>
 
-        {/* Booking List */}
         {bookings.length > 0 ? (
           <div className="space-y-4">
             {bookings.map((booking: IBooking) => (

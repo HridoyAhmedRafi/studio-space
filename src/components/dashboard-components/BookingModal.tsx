@@ -25,7 +25,7 @@ type BookingStudio = IStudio;
 
 const BookingModal = ({ studio }: { studio: BookingStudio }) => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   const [open, setOpen] = useState(false);
   const [bookingDate, setBookingDate] = useState("");
@@ -58,6 +58,20 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
     String(today.getMonth() + 1).padStart(2, "0"),
     String(today.getDate()).padStart(2, "0"),
   ].join("-");
+
+  // Only logged-in users may open the booking form. Guests are sent to login
+  // immediately instead of filling the form and failing on submit.
+  const handleBookClick = () => {
+    if (isPending) return;
+
+    if (!session?.user) {
+      toast.error("Please log in to book this workspace.");
+      router.push("/login");
+      return;
+    }
+
+    setOpen(true);
+  };
 
   const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -156,7 +170,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
   return (
     <>
       <Button
-        onClick={() => setOpen(true)}
+        onClick={handleBookClick}
         className="cursor-pointer h-12 w-full bg-[#cd274e] font-semibold text-white hover:bg-[#b92144]"
       >
         Book Workspace Now
@@ -181,7 +195,6 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
           </div>
 
           <form onSubmit={handleBooking} className="space-y-5">
-            {/* Booking Date */}
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium">
                 <CalendarDays className="size-4 text-[#cd274e]" />
@@ -198,7 +211,6 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
               />
             </div>
 
-            {/* Start Time & End Time */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-medium">
@@ -232,14 +244,12 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
               </div>
             </div>
 
-            {/* Duration Info */}
             {duration > 0 && (
               <p className="text-xs text-muted-foreground">
                 Booking Duration: {duration} {duration === 1 ? "hour" : "hours"}
               </p>
             )}
 
-            {/* Guests */}
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium">
                 <Users className="size-4 text-[#cd274e]" />
@@ -261,7 +271,6 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
               </p>
             </div>
 
-            {/* Additional Message */}
             <div className="space-y-2">
               <label className="text-sm font-medium">
                 Additional Message (Optional)
@@ -276,7 +285,6 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
               />
             </div>
 
-            {/* Price Summary */}
             <div className="space-y-3 rounded-xl border p-4">
               <h3 className="font-semibold">Booking Summary</h3>
 

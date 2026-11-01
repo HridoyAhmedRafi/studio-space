@@ -1,10 +1,16 @@
 import StudioFilter from "@/components/dashboard-components/StudioFilter";
 
-const ExploreStudioPage = async () => {
+const ExploreStudioPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) => {
+  const { category } = await searchParams;
+
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/studios`, {
     cache: "no-store",
   });
-  const studios = await res.json();
+  const studios = res.ok ? await res.json() : [];
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -23,7 +29,7 @@ const ExploreStudioPage = async () => {
         </p>
       </div>
 
-      <StudioFilter studios={studios} key={studios._id} />
+      <StudioFilter studios={studios} initialCategory={category} />
     </div>
   );
 };

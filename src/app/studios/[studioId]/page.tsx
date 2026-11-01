@@ -203,9 +203,9 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
 
             <div className="flex flex-wrap items-center gap-4 rounded-xl border p-5">
               <div className="flex size-14 items-center justify-center rounded-full bg-[#cd274e]/10 text-xl font-bold text-[#cd274e]">
-                {studio.imageUrl ? (
+                {user?.image ? (
                   <Image
-                    src={user?.image as string}
+                    src={user.image}
                     alt={studio.ownerName || "Host"}
                     width={56}
                     height={56}

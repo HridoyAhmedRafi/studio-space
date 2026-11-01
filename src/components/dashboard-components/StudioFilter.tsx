@@ -1,35 +1,46 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Search, RotateCcw, SlidersHorizontal } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import StudioCard from "@/components/dashboard-components/StudioCard";
+import {
+  ALL_STUDIOS,
+  isStudioCategory,
+  STUDIO_CATEGORIES,
+} from "@/lib/studio-categories";
 import { IStudio } from "@/lib/studio-type";
 
-const categories = [
-  "All Studios",
-  "Photo Studio",
-  "Film Stage",
-  "Podcast Lounge",
-  "Music Suite",
-  "Workshop",
-  "Creative Space",
-];
+const categories: string[] = [ALL_STUDIOS, ...STUDIO_CATEGORIES];
 
 interface StudioFilterProps {
   studios: IStudio[];
+  initialCategory?: string;
 }
 
-const StudioFilter = ({ studios }: StudioFilterProps) => {
+const StudioFilter = ({ studios, initialCategory }: StudioFilterProps) => {
+  const pathname = usePathname();
+
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All Studios");
+  const [category, setCategory] = useState<string>(() =>
+    isStudioCategory(initialCategory) ? initialCategory : ALL_STUDIOS,
+  );
+
+  const [syncedCategory, setSyncedCategory] = useState(initialCategory);
+
+  if (initialCategory !== syncedCategory) {
+    setSyncedCategory(initialCategory);
+    setCategory(
+      isStudioCategory(initialCategory) ? initialCategory : ALL_STUDIOS,
+    );
+  }
 
   const filteredStudios = useMemo(() => {
     let result = [...studios];
 
-    // Search Filter
     if (search.trim()) {
       const searchTerm = search.toLowerCase();
 
@@ -48,22 +59,37 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
       });
     }
 
-    // Category Filter
-    if (category !== "All Studios") {
+    if (category !== ALL_STUDIOS) {
       result = result.filter((studio) => studio.category === category);
     }
 
     return result;
   }, [studios, search, category]);
 
+  const syncCategoryToUrl = (nextCategory: string) => {
+    if (typeof window === "undefined") return;
+
+    const url =
+      nextCategory === ALL_STUDIOS
+        ? pathname
+        : `${pathname}?category=${encodeURIComponent(nextCategory)}`;
+
+    window.history.replaceState(null, "", url);
+  };
+
+  const handleCategoryChange = (nextCategory: string) => {
+    setCategory(nextCategory);
+    syncCategoryToUrl(nextCategory);
+  };
+
   const handleReset = () => {
     setSearch("");
-    setCategory("All Studios");
+    setCategory(ALL_STUDIOS);
+    syncCategoryToUrl(ALL_STUDIOS);
   };
 
   return (
     <div className=" space-y-8">
-      {/* Search Section */}
       <div className="rounded-2xl border bg-card p-5 sm:p-7">
         <div className="mb-4">
           <h2 className="text-lg font-semibold">Find Your Perfect Studio</h2>
@@ -95,7 +121,6 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
         </div>
       </div>
 
-      {/* Category Section */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -108,7 +133,7 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
             </p>
           </div>
 
-          {(search || category !== "All Studios") && (
+          {(search || category !== ALL_STUDIOS) && (
             <Button
               variant="ghost"
               size="sm"
@@ -129,7 +154,7 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
               <button
                 key={item}
                 type="button"
-                onClick={() => setCategory(item)}
+                onClick={() => handleCategoryChange(item)}
                 className={`cursor-pointer shrink-0 rounded-full border px-5 py-2.5 text-sm font-medium transition-all ${
                   isActive
                     ? "border-[#cd274e] bg-[#cd274e] text-white shadow-sm"
@@ -143,11 +168,10 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
         </div>
       </div>
 
-      {/* Results Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
         <div>
           <h2 className="text-xl font-bold">
-            {category === "All Studios" ? "Available Studios" : category}
+            {category === ALL_STUDIOS ? "Available Studios" : category}
           </h2>
 
           <p className="mt-1 text-sm text-muted-foreground">
@@ -161,7 +185,6 @@ const StudioFilter = ({ studios }: StudioFilterProps) => {
         </p>
       </div>
 
-      {/* Studio Grid */}
       {filteredStudios.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredStudios.map((studio) => (

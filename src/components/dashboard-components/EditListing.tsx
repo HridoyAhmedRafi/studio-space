@@ -90,7 +90,7 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
         securityDeposit: Number(formData.get("securityDeposit")),
         amenities: selectedAmenities,
       };
-
+      console.log(updatedData, "updated data");
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/update-studio/${studio._id}`,
         {
@@ -121,21 +121,23 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <button
-          type="button"
-          title="Edit Studio"
-          aria-label="Edit Studio"
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue-500/10 dark:hover:text-blue-400"
-        >
-          <Pencil size={16} />
-        </button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <button
+            type="button"
+            title="Edit Studio"
+            aria-label="Edit Studio"
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-all hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-blue-500/10 dark:hover:text-blue-400"
+          >
+            <Pencil size={16} />
+          </button>
+        }
+      />
 
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-[#CD274E]">
-            Edit Studio Listing
+            Update Studio Listing
           </DialogTitle>
 
           <DialogDescription>
@@ -143,7 +145,7 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <Card className="border-0 shadow-none">
+        <Card className="p-6 border-0 shadow-none">
           <CardHeader className="px-0">
             <CardTitle className="text-xl">Studio Details</CardTitle>
             <CardDescription>
@@ -161,7 +163,6 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
               }
               className="space-y-5"
             >
-              {/* Studio Information */}
               <div className="space-y-4">
                 <h3 className="font-semibold">Studio Information</h3>
 

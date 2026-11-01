@@ -11,7 +11,7 @@ import {
   Lock,
   Clapperboard,
 } from "lucide-react";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 export default function RegisterPage() {
@@ -35,7 +35,6 @@ export default function RegisterPage() {
       image: string;
       password: string;
     };
-    console.log(user, "user register");
     if (!isPasswordValid) return;
 
     try {
@@ -56,6 +55,18 @@ export default function RegisterPage() {
     }
   }
 
+  const handleRegisterWithGoogle = async () => {
+    toast.loading("Connecting with Google...");
+
+    try {
+      await signIn.social({
+        provider: "google",
+      });
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
+      console.log("Something went wrong:", error);
+    }
+  };
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md rounded-2xl bg-card text-card-foreground p-6 sm:p-8 shadow-xl shadow-black/5 dark:shadow-black/40">
@@ -172,7 +183,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={!isPasswordValid}
-            className="w-full rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
+            className="cursor-pointer w-full rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
           >
             Create Account
           </button>
@@ -190,8 +201,9 @@ export default function RegisterPage() {
         {/* Social Login */}
         <div className="  grid grid-cols-1 w-full gap-3">
           <button
+            onClick={handleRegisterWithGoogle}
             type="button"
-            className=" flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted"
+            className="cursor-pointer flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted"
           >
             <svg viewBox="0 0 48 48" className="h-5 w-5">
               <path
@@ -213,21 +225,6 @@ export default function RegisterPage() {
             </svg>
             Google
           </button>
-
-          {/* <button
-            type="button"
-            className="flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-            </svg>
-            GitHub
-          </button> */}
         </div>
 
         {/* Login Link */}

@@ -37,6 +37,18 @@ export default function RegisterPage() {
     }
   }
 
+  const handleLoginWithGoogle = async () => {
+    toast.loading("Connecting with Google...");
+    try {
+      await signIn.social({
+        provider: "google",
+      });
+    } catch (error) {
+      toast.error("Something went wrong. Please try again");
+      console.log("Something went wrong:", error);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md rounded-2xl bg-card text-card-foreground p-6 sm:p-8 shadow-xl shadow-black/5 dark:shadow-black/40">
@@ -124,6 +136,7 @@ export default function RegisterPage() {
         {/* Social Login */}
         <div className="  grid grid-cols-1 w-full gap-3">
           <button
+            onClick={handleLoginWithGoogle}
             type="button"
             className="cursor-pointer flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted"
           >

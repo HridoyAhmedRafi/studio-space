@@ -54,7 +54,7 @@ const MyStudioListings = async () => {
           </div>
 
           <Link
-            href="/dashboard/add-studio"
+            href="/add-studio"
             className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-[#CD274E] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#B51F43] hover:shadow-md"
           >
             <Plus size={18} strokeWidth={2.5} />

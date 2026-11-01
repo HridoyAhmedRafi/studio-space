@@ -1,7 +1,5 @@
-import React from "react";
-
 const MyBookingsPage = () => {
-  return <div>MyBookingsPage</div>;
+  return <div className="max-w-7xl mx-auto px-4 py-4">MyBookingsPage</div>;
 };
 
 export default MyBookingsPage;

@@ -9,16 +9,18 @@ import {
   Mail,
   Image,
   Lock,
+  LoaderCircle,
   Clapperboard,
 } from "lucide-react";
 import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { dismissToast, toastError, toastLoading, toastSuccess } from "@/lib/toast";
 export default function RegisterPage() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
@@ -28,6 +30,9 @@ export default function RegisterPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (submitting) return;
+
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries()) as {
       name: string;
@@ -37,34 +42,40 @@ export default function RegisterPage() {
     };
     if (!isPasswordValid) return;
 
+    setSubmitting(true);
+
     try {
       const { data, error } = await signUp.email({
         ...user,
       });
 
       if (error) {
-        toast.error(error.message as string);
+        toastError(error);
       }
       if (data) {
-        toast.success("Registration successful! Please log in.");
+        toastSuccess("Registration successful! Please log in.");
         router.push("/login");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again");
+      toastError(error);
       console.log("Something went wrong:", error);
+    } finally {
+      setSubmitting(false);
     }
   }
 
   const handleRegisterWithGoogle = async () => {
-    toast.loading("Connecting with Google...");
+    toastLoading("Connecting with Google...");
 
     try {
       await signIn.social({
         provider: "google",
       });
     } catch (error) {
-      toast.error("Something went wrong. Please try again");
+      toastError(error);
       console.log("Something went wrong:", error);
+    } finally {
+      dismissToast();
     }
   };
   return (
@@ -182,10 +193,12 @@ export default function RegisterPage() {
           {/* Register Button */}
           <button
             type="submit"
-            disabled={!isPasswordValid}
-            className="cursor-pointer w-full rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={!isPasswordValid || submitting}
+            aria-busy={submitting}
+            className="inline-flex cursor-pointer w-full items-center justify-center gap-2 rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Create Account
+            {submitting && <LoaderCircle className="size-4 animate-spin" />}
+            {submitting ? "Creating account..." : "Create Account"}
           </button>
         </form>
 
@@ -203,7 +216,8 @@ export default function RegisterPage() {
           <button
             onClick={handleRegisterWithGoogle}
             type="button"
-            className="cursor-pointer flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted"
+            disabled={submitting}
+            className="cursor-pointer flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
           >
             <svg viewBox="0 0 48 48" className="h-5 w-5">
               <path

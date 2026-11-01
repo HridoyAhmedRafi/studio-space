@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { ArrowRight, CalendarCheck2, CalendarX2, LogIn } from "lucide-react";
 
 import BookingCard from "@/components/dashboard-components/BookingCard";
+import EmptyState from "@/components/shared/EmptyState";
 import { auth } from "@/lib/auth";
 import { IBooking } from "@/lib/booking-type";
 import { IStudio } from "@/lib/studio-type";
@@ -98,28 +99,12 @@ const MyBookingsPage = async () => {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-20 text-center dark:border-gray-700 dark:bg-[#0F172A]">
-            <div className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-[#d1234c]/10 text-[#d1234c]">
-              <CalendarX2 size={30} />
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              No bookings found
-            </h3>
-
-            <p className="mt-2 max-w-sm text-sm text-gray-500 dark:text-gray-400">
-              Once you request a workspace, your bookings and their status will
-              show up here.
-            </p>
-
-            <Link
-              href="/studios"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#d1234c] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#b51f43]"
-            >
-              Browse Studios
-              <ArrowRight size={16} />
-            </Link>
-          </div>
+          <EmptyState
+            icon={<CalendarX2 className="size-7" />}
+            title="No bookings yet"
+            description="Once you request a workspace, your bookings and their status will show up here."
+            primaryAction={{ label: "Browse Studios", href: "/studios" }}
+          />
         )}
       </div>
     </section>

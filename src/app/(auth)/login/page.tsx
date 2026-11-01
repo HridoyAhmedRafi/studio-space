@@ -2,21 +2,27 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, Mail, Lock, Clapperboard } from "lucide-react";
+import { Eye, EyeOff, LoaderCircle, Mail, Lock, Clapperboard } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
-import toast from "react-hot-toast";
+import { dismissToast, toastError, toastLoading, toastSuccess } from "@/lib/toast";
 import { useRouter } from "next/navigation";
 export default function RegisterPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (submitting) return;
+
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries()) as {
       email: string;
       password: string;
     };
+
+    setSubmitting(true);
 
     try {
       const { data, error } = await signIn.email({
@@ -24,27 +30,32 @@ export default function RegisterPage() {
       });
 
       if (error) {
-        toast.error(error.message as string);
+        toastError(error);
       }
       if (data) {
-        toast.success("Login successful!");
+        toastSuccess("Login successful!");
         router.push("/");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again");
+      toastError(error);
       console.log("Something went wrong:", error);
+    } finally {
+      setSubmitting(false);
     }
   }
 
   const handleLoginWithGoogle = async () => {
-    toast.loading("Connecting with Google...");
+    toastLoading("Connecting with Google...");
+
     try {
       await signIn.social({
         provider: "google",
       });
     } catch (error) {
-      toast.error("Something went wrong. Please try again");
+      toastError(error);
       console.log("Something went wrong:", error);
+    } finally {
+      dismissToast();
     }
   };
 
@@ -117,9 +128,12 @@ export default function RegisterPage() {
           {/* login Button */}
           <button
             type="submit"
-            className="cursor-pointer w-full rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={submitting}
+            aria-busy={submitting}
+            className="inline-flex cursor-pointer w-full items-center justify-center gap-2 rounded-lg bg-[#d1234c] py-3 font-semibold text-white transition  disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Login Account
+            {submitting && <LoaderCircle className="size-4 animate-spin" />}
+            {submitting ? "Logging in..." : "Login Account"}
           </button>
         </form>
 
@@ -137,7 +151,8 @@ export default function RegisterPage() {
           <button
             onClick={handleLoginWithGoogle}
             type="button"
-            className="cursor-pointer flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted"
+            disabled={submitting}
+            className="cursor-pointer flex items-center justify-center gap-2 rounded-lg border border-border py-3 text-sm font-medium text-foreground transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-60"
           >
             <svg viewBox="0 0 48 48" className="h-5 w-5">
               <path

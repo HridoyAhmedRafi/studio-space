@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { LoaderCircle, Send } from "lucide-react";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,7 +17,7 @@ const NewsletterForm = () => {
     const value = email.trim();
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      toast.error("Please enter a valid email address.");
+      toastError("Please enter a valid email address.");
       return;
     }
 
@@ -27,10 +27,10 @@ const NewsletterForm = () => {
       // TODO: swap for a real subscribe endpoint once the API exposes one.
       await new Promise((resolve) => setTimeout(resolve, 600));
 
-      toast.success("Thanks for subscribing! Watch your inbox for studio drops.");
+      toastSuccess("Thanks for subscribing! Watch your inbox for studio drops.");
       setEmail("");
-    } catch {
-      toast.error("Subscription failed. Please try again.");
+    } catch (error) {
+      toastError(error, "Subscription failed. Please try again.");
     } finally {
       setSubmitting(false);
     }

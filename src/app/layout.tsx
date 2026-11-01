@@ -37,9 +37,35 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </Script>
       </head>
       <body className="min-h-full flex flex-col">
-        <Toaster />
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ top: 80 }}
+          toastOptions={{
+            duration: 3500,
+            style: {
+              maxWidth: "420px",
+              padding: "10px 14px",
+              borderRadius: "0.75rem",
+              border: "1px solid var(--border)",
+              background: "var(--card)",
+              color: "var(--card-foreground)",
+              fontSize: "0.875rem",
+              lineHeight: "1.4",
+              boxShadow: "0 18px 36px -24px rgba(15, 23, 42, 0.55)",
+            },
+            success: {
+              duration: 3000,
+              iconTheme: { primary: "#16a34a", secondary: "#ffffff" },
+            },
+            error: {
+              duration: 5000,
+              iconTheme: { primary: "#d1234c", secondary: "#ffffff" },
+            },
+          }}
+        />
         <Navbar></Navbar>
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer></Footer>
       </body>
     </html>

@@ -2,8 +2,15 @@ import { auth } from "@/lib/auth";
 import { IStudio } from "@/lib/studio-type";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { Plus, LayoutGrid, Building2 } from "lucide-react";
+import {
+  Plus,
+  LayoutGrid,
+  Building2,
+  LockKeyhole,
+  TriangleAlert,
+} from "lucide-react";
 import MyListingCard from "@/components/dashboard-components/MyListingCard";
+import EmptyState from "@/components/shared/EmptyState";
 
 const MyStudioListings = async () => {
   const session = await auth.api.getSession({
@@ -14,9 +21,17 @@ const MyStudioListings = async () => {
 
   if (!user?.email) {
     return (
-      <div className="py-20 text-center text-gray-500">
-        Please log in to view your studio listings.
-      </div>
+      <section className="flex min-h-screen items-center justify-center bg-[#F8F9FC] px-4 py-16 dark:bg-[#020618]">
+        <div className="w-full max-w-2xl">
+          <EmptyState
+            icon={<LockKeyhole className="size-7" />}
+            title="Please log in"
+            description="You need an account to manage your studio listings."
+            primaryAction={{ label: "Go to Login", href: "/login" }}
+            secondaryAction={{ label: "Browse Studios", href: "/studios" }}
+          />
+        </div>
+      </section>
     );
   }
 
@@ -28,7 +43,18 @@ const MyStudioListings = async () => {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch studio listings");
+    return (
+      <section className="min-h-screen bg-[#F8F9FC] px-4 py-10 dark:bg-[#020618] sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <EmptyState
+            icon={<TriangleAlert className="size-7" />}
+            title="We couldn't load your listings"
+            description="The studio service did not respond. Check your connection and try again."
+            primaryAction={{ label: "Try Again", href: "/my-listings" }}
+          />
+        </div>
+      </section>
+    );
   }
 
   const data: IStudio[] = await res.json();
@@ -62,7 +88,6 @@ const MyStudioListings = async () => {
           </Link>
         </div>
 
-        {/* Listing Summary */}
         <div className="mb-6 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-5 py-4 dark:border-gray-800 dark:bg-[#0F172A]">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#CD274E]/10 text-[#CD274E] dark:bg-[#CD274E]/15 dark:text-[#F47291]">
@@ -84,7 +109,6 @@ const MyStudioListings = async () => {
           </span>
         </div>
 
-        {/* Studio Listings */}
         {data.length > 0 ? (
           <div className="space-y-4">
             {data.map((item: IStudio) => (
@@ -92,27 +116,12 @@ const MyStudioListings = async () => {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-20 text-center dark:border-gray-700 dark:bg-[#0F172A]">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#CD274E]/10 text-[#CD274E] dark:bg-[#CD274E]/15">
-              <Building2 size={30} />
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              No studios listed yet
-            </h3>
-
-            <p className="mt-2 max-w-sm text-sm text-gray-500 dark:text-gray-400">
-              Start showcasing your creative spaces by adding your first studio.
-            </p>
-
-            <Link
-              href="/add-studio"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#CD274E] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#B51F43]"
-            >
-              <Plus size={17} />
-              Create Studio
-            </Link>
-          </div>
+          <EmptyState
+            icon={<Building2 className="size-7" />}
+            title="No studios listed yet"
+            description="Start showcasing your creative spaces by adding your first studio."
+            primaryAction={{ label: "Create Studio", href: "/add-studio" }}
+          />
         )}
       </div>
     </section>

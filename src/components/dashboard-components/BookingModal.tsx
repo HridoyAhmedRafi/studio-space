@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CalendarDays, Clock, Users } from "lucide-react";
+import { CalendarDays, Clock, LoaderCircle, Users } from "lucide-react";
 
 import { useSession } from "@/lib/auth-client";
 import { IStudio } from "@/lib/studio-type";
@@ -19,7 +19,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 
 type BookingStudio = IStudio;
 
@@ -59,13 +59,11 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
     String(today.getDate()).padStart(2, "0"),
   ].join("-");
 
-  // Only logged-in users may open the booking form. Guests are sent to login
-  // immediately instead of filling the form and failing on submit.
   const handleBookClick = () => {
     if (isPending) return;
 
     if (!session?.user) {
-      toast.error("Please log in to book this workspace.");
+      toastError("Please log in to book this workspace.");
       router.push("/login");
       return;
     }
@@ -77,30 +75,30 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
     e.preventDefault();
 
     if (!session?.user) {
-      toast.error("Please log in to book this workspace.");
+      toastError("Please log in to book this workspace.");
       router.push("/login");
       return;
     }
 
     if (!bookingDate || !startTime || !endTime) {
-      toast.error("Please select booking date, start time and end time.");
+      toastError("Please select booking date, start time and end time.");
       return;
     }
 
     const selectedDateTime = new Date(`${bookingDate}T${startTime}`);
 
     if (selectedDateTime <= new Date()) {
-      toast.error("Please select a future date and time.");
+      toastError("Please select a future date and time.");
       return;
     }
 
     if (duration <= 0) {
-      toast.error("End time must be later than start time.");
+      toastError("End time must be later than start time.");
       return;
     }
 
     if (Number(guestCount) < 1 || Number(guestCount) > capacity) {
-      toast.error(`Guest count must be between 1 and ${capacity}.`);
+      toastError(`Guest count must be between 1 and ${capacity}.`);
       return;
     }
 
@@ -144,11 +142,11 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
       const result = await res.json();
 
       if (!res.ok) {
-        toast.error(result.message || "Booking request failed.");
+        toastError(result, "Booking request failed.");
         return;
       }
 
-      toast.success("Your booking request has been submitted!");
+      toastSuccess("Your booking request has been submitted!");
 
       setOpen(false);
       setBookingDate("");
@@ -161,7 +159,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
       router.refresh();
     } catch (error) {
       console.error("Booking error:", error);
-      toast.error("Something went wrong. Please try again.");
+      toastError(error);
     } finally {
       setLoading(false);
     }
@@ -316,8 +314,10 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
             <Button
               type="submit"
               disabled={loading}
-              className="cursor-pointer h-12 w-full bg-[#cd274e] font-semibold text-white hover:bg-[#b92144]"
+              aria-busy={loading}
+              className="cursor-pointer h-12 w-full gap-2 bg-[#cd274e] font-semibold text-white hover:bg-[#b92144]"
             >
+              {loading && <LoaderCircle className="size-4 animate-spin" />}
               {loading ? "Submitting Request..." : "Confirm Booking Request"}
             </Button>
           </form>

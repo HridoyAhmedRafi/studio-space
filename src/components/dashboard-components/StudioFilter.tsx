@@ -6,6 +6,7 @@ import { Search, RotateCcw, SlidersHorizontal } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import EmptyState from "@/components/shared/EmptyState";
 import StudioCard from "@/components/dashboard-components/StudioCard";
 import {
   ALL_STUDIOS,
@@ -192,22 +193,12 @@ const StudioFilter = ({ studios, initialCategory }: StudioFilterProps) => {
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed py-20 text-center">
-          <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#cd274e]/10">
-            <Search className="size-6 text-[#cd274e]" />
-          </div>
-
-          <h3 className="text-lg font-semibold">No Studios Found</h3>
-
-          <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
-            We couldn&apos;t find any studios matching your search. Try another
-            keyword or category.
-          </p>
-
-          <Button onClick={handleReset} variant="outline" className="mt-5">
-            Clear Filters
-          </Button>
-        </div>
+        <EmptyState
+          icon={<Search className="size-6" />}
+          title="No Studios Found"
+          description="We couldn't find any studios matching your search. Try another keyword or category."
+          primaryAction={{ label: "Clear Filters", onClick: handleReset }}
+        />
       )}
     </div>
   );

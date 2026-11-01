@@ -11,15 +11,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  PlusCircle,
-  Building2,
-  CalendarDays,
-  Heart,
-  LogOut,
-} from "lucide-react";
-import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { PlusCircle, Building2, CalendarDays, LogOut } from "lucide-react";
+import { toastError, toastSuccess } from "@/lib/toast";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const brandSolidClass =
@@ -28,15 +22,32 @@ const brandSolidClass =
 const brandOutlineClass =
   "border-black/20 bg-transparent hover:border-[#d1234c]/40 hover:bg-[#d1234c]/5 hover:text-[#d1234c] dark:border-white/20 dark:bg-transparent dark:hover:bg-[#d1234c]/10 dark:hover:text-[#f06a8f]";
 
-export default function SessionButton() {
+interface SessionButtonProps {
+  /**
+   * Hides the guest Login/Register pair on screens below `md`.
+   * Used by the navbar top bar, where those links already exist in the
+   * hamburger menu. Signed-in users still get their avatar.
+   */
+  hideGuestActionsOnMobile?: boolean;
+}
+
+export default function SessionButton({
+  hideGuestActionsOnMobile = false,
+}: SessionButtonProps) {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
   const user = session?.user;
 
   const handleSignOut = async () => {
-    toast.success("You have been signed out");
-    signOut();
-    redirect("/login");
+    try {
+      await signOut();
+      toastSuccess("You have been signed out");
+      router.push("/login");
+      router.refresh();
+    } catch (error) {
+      toastError(error, "Unable to sign out. Please try again.");
+    }
   };
 
   return (
@@ -129,30 +140,33 @@ export default function SessionButton() {
             </Link>
           </div>
 
-          {/* Mobile buttons */}
-          <div className="flex flex-col gap-2 md:hidden">
-            <Link
-              href="/login"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "w-full",
-                brandOutlineClass,
-              )}
-            >
-              Login
-            </Link>
+          {/* Mobile buttons — only rendered when this instance lives inside the
+              mobile menu, so the top bar never duplicates the guest links. */}
+          {!hideGuestActionsOnMobile && (
+            <div className="flex flex-col gap-2 md:hidden">
+              <Link
+                href="/login"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "w-full",
+                  brandOutlineClass,
+                )}
+              >
+                Login
+              </Link>
 
-            <Link
-              href="/register"
-              className={cn(
-                buttonVariants({ size: "sm" }),
-                brandSolidClass,
-                "w-full",
-              )}
-            >
-              Register
-            </Link>
-          </div>
+              <Link
+                href="/register"
+                className={cn(
+                  buttonVariants({ size: "sm" }),
+                  brandSolidClass,
+                  "w-full",
+                )}
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </>
       )}
     </>

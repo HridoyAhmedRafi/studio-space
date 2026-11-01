@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Trash2 } from "lucide-react";
-import toast from "react-hot-toast";
+import { LoaderCircle, Trash2 } from "lucide-react";
+import { toastError, toastSuccess } from "@/lib/toast";
 import { Button } from "../ui/button";
 
 interface DeleteListingProps {
@@ -28,15 +28,15 @@ const DeleteListing = ({ studioId }: DeleteListingProps) => {
       const backendRes = await res.json();
 
       if (!res.ok || backendRes.deletedCount === 0) {
-        toast.error(backendRes.message || "Unable to delete studio.");
+        toastError(backendRes, "Unable to delete studio.");
         return;
       }
 
-      toast.success("Studio deleted successfully.");
+      toastSuccess("Studio deleted successfully.");
       router.refresh();
     } catch (error) {
       console.error("Error deleting studio:", error);
-      toast.error("Something went wrong. Please try again.");
+      toastError(error);
     } finally {
       setLoading(false);
     }
@@ -49,10 +49,15 @@ const DeleteListing = ({ studioId }: DeleteListingProps) => {
       type="button"
       onClick={handleDelete}
       disabled={loading}
+      aria-busy={loading}
       title="Delete Studio"
       aria-label="Delete Studio"
     >
-      <Trash2 size={16} />
+      {loading ? (
+        <LoaderCircle className="size-4 animate-spin" />
+      ) : (
+        <Trash2 size={16} />
+      )}
     </Button>
   );
 };

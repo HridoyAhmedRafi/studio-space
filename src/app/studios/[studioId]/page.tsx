@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   MapPin,
@@ -50,22 +51,7 @@ const StudioDetailsPage = async ({ params }: ParamsProps) => {
   );
 
   if (!res.ok) {
-    return (
-      <div className="mx-auto max-w-7xl px-4 py-24 text-center">
-        <h1 className="text-2xl font-bold">Studio Not Found</h1>
-        <p className="mt-2 text-muted-foreground">
-          This studio may have been removed or is no longer available.
-        </p>
-
-        <Link
-          href="/studios"
-          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#cd274e] hover:underline"
-        >
-          <ArrowLeft className="size-4" />
-          Back to Studios
-        </Link>
-      </div>
-    );
+    notFound();
   }
 
   const studio = (await res.json()) as StudioDetails;

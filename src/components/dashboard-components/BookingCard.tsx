@@ -7,12 +7,13 @@ import {
   CircleX,
   Clapperboard,
   Clock3,
+  LoaderCircle,
   MapPin,
 } from "lucide-react";
 
 import { IBooking } from "@/lib/booking-type";
 import { IStudio } from "@/lib/studio-type";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 import { useState } from "react";
 
 type BookingStatus = IBooking["status"];
@@ -75,10 +76,15 @@ const BookingCard = ({
   booking: IBooking;
   studio?: IStudio;
 }) => {
-  const [currentStatus, setCurrentStatus] = useState<BookingStatus>(
-    booking.status,
-  );
+  const [currentStatus, setCurrentStatus] =
+    useState<BookingStatus>(booking.status);
+  const [cancelling, setCancelling] = useState(false);
+
   const handleCancelBooking = async () => {
+    if (cancelling) return;
+
+    setCancelling(true);
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/booking/cancel/${booking._id}`,
@@ -90,16 +96,18 @@ const BookingCard = ({
       const backendRes = await res.json();
 
       if (!res.ok || backendRes.modifiedCount === 0) {
-        toast.error(backendRes.message || "Unable to cancel booking.");
+        toastError(backendRes, "Unable to cancel booking.");
         return;
       }
 
       setCurrentStatus("Cancelled");
 
-      toast.success("Booking cancelled successfully!");
+      toastSuccess("Booking cancelled successfully!");
     } catch (error) {
       console.error("Error cancelling booking:", error);
-      toast.error("Something went wrong. Please try again.");
+      toastError(error);
+    } finally {
+      setCancelling(false);
     }
   };
   const status = getStatus(currentStatus);
@@ -192,12 +200,18 @@ const BookingCard = ({
             <button
               onClick={handleCancelBooking}
               type="button"
+              disabled={cancelling}
+              aria-busy={cancelling}
               title="Cancel booking"
               aria-label="Cancel booking"
-              className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-600 transition-colors hover:border-rose-300 hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-400 dark:hover:bg-rose-500/15"
+              className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-600 transition-colors hover:border-rose-300 hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-400 dark:hover:bg-rose-500/15"
             >
-              <CircleX size={14} />
-              Cancel Booking
+              {cancelling ? (
+                <LoaderCircle size={14} className="animate-spin" />
+              ) : (
+                <CircleX size={14} />
+              )}
+              {cancelling ? "Cancelling..." : "Cancel Booking"}
             </button>
           )}
         </div>

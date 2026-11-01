@@ -3,8 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { IStudio } from "@/lib/studio-type";
-import { Pencil } from "lucide-react";
-import toast from "react-hot-toast";
+import { LoaderCircle, Pencil } from "lucide-react";
+import { toastError, toastSuccess } from "@/lib/toast";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -104,15 +104,15 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
       const backendRes = await res.json();
 
       if (!res.ok) {
-        toast.error(backendRes.message || "Failed to update studio.");
+        toastError(backendRes, "Failed to update studio.");
         return;
       }
-      toast.success("Studio updated successfully!");
+      toastSuccess("Studio updated successfully!");
       setOpen(false);
       router.refresh();
     } catch (error) {
       console.error("Error updating studio:", error);
-      toast.error("Something went wrong. Please try again.");
+      toastError(error);
     } finally {
       setLoading(false);
     }
@@ -355,8 +355,10 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="cursor-pointer bg-[#CD274E] text-white hover:bg-[#b92144]"
+                  aria-busy={loading}
+                  className="cursor-pointer gap-2 bg-[#CD274E] text-white hover:bg-[#b92144]"
                 >
+                  {loading && <LoaderCircle className="size-4 animate-spin" />}
                   {loading ? "Updating..." : "Save Changes"}
                 </Button>
               </div>

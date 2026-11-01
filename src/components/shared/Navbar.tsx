@@ -100,7 +100,8 @@ const Navbar = () => {
           >
             {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
           </Button>
-          <SessionButton />
+          {/* Guest Login/Register live in the mobile menu below, not here. */}
+          <SessionButton hideGuestActionsOnMobile />
         </div>
       </div>
 

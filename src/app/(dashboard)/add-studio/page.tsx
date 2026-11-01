@@ -20,8 +20,10 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSession } from "@/lib/auth-client";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { LoaderCircle } from "lucide-react";
 
 const categories = [
   "Photo Studio",
@@ -50,11 +52,17 @@ const amenities = [
 export default function AddStudioForm() {
   const router = useRouter();
   const { data: session } = useSession();
+  const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (submitting) return;
+
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+
+    setSubmitting(true);
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-studio`, {
@@ -68,15 +76,17 @@ export default function AddStudioForm() {
 
       const backendRes = await res.json();
       if (!res.ok) {
-        toast.error(backendRes.message);
+        toastError(backendRes, "Failed to create studio.");
         return;
       } else {
-        toast.success("Studio added successfully!");
+        toastSuccess("Studio added successfully!");
         router.push("/my-listings");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
       console.error("Studio creation error:", error);
+      toastError(error);
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -101,7 +111,6 @@ export default function AddStudioForm() {
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Studio Information */}
             <div className="space-y-4">
               <h3 className="font-semibold">Studio Information</h3>
 
@@ -147,8 +156,6 @@ export default function AddStudioForm() {
             </div>
 
             <div className="border-t" />
-
-            {/* Pricing */}
             <div className="space-y-4">
               <h3 className="font-semibold">Pricing</h3>
 
@@ -182,11 +189,8 @@ export default function AddStudioForm() {
             </div>
 
             <div className="border-t" />
-
-            {/* Location & Image */}
             <div className="space-y-4">
               <h3 className="font-semibold">Location & Images</h3>
-
               <div className="space-y-2">
                 <Label htmlFor="location">Location / Address *</Label>
                 <Input
@@ -210,8 +214,6 @@ export default function AddStudioForm() {
             </div>
 
             <div className="border-t" />
-
-            {/* Amenities */}
             <div className="space-y-4">
               <h3 className="font-semibold">Studio Amenities</h3>
               <p className="text-sm text-muted-foreground">
@@ -234,8 +236,6 @@ export default function AddStudioForm() {
             </div>
 
             <div className="border-t" />
-
-            {/* Overview */}
             <div className="space-y-4">
               <h3 className="font-semibold">Detailed Overview</h3>
 
@@ -249,8 +249,6 @@ export default function AddStudioForm() {
             </div>
 
             <div className="border-t" />
-
-            {/* Owner Information */}
             <div className="space-y-4">
               <h3 className="font-semibold">Owner Information</h3>
 
@@ -277,20 +275,26 @@ export default function AddStudioForm() {
                 </div>
               </div>
             </div>
-
             <div className="border-t" />
 
-            {/* Submit */}
             <div className=" flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-              <Button className="cursor-pointer" type="reset" variant="outline">
+              <Button
+                className="cursor-pointer"
+                type="reset"
+                variant="outline"
+                disabled={submitting}
+              >
                 Reset Form
               </Button>
 
               <Button
                 type="submit"
-                className="cursor-pointer bg-[#cd274e] text-white hover:bg-[#b92144]"
+                disabled={submitting}
+                aria-busy={submitting}
+                className="cursor-pointer gap-2 bg-[#cd274e] text-white hover:bg-[#b92144]"
               >
-                Create Studio Listing
+                {submitting && <LoaderCircle className="size-4 animate-spin" />}
+                {submitting ? "Creating..." : "Create Studio Listing"}
               </Button>
             </div>
           </form>

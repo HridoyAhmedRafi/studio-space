@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PlusCircle, Building2, CalendarDays, LogOut } from "lucide-react";
 import { toastError, toastSuccess } from "@/lib/toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const brandSolidClass =
@@ -22,12 +22,18 @@ const brandSolidClass =
 const brandOutlineClass =
   "border-black/20 bg-transparent hover:border-[#d1234c]/40 hover:bg-[#d1234c]/5 hover:text-[#d1234c] dark:border-white/20 dark:bg-transparent dark:hover:bg-[#d1234c]/10 dark:hover:text-[#f06a8f]";
 
+const accountLinks = [
+  { href: "/add-studio", label: "Add New Studio", icon: PlusCircle },
+  { href: "/my-listings", label: "My Studio Listings", icon: Building2 },
+  { href: "/my-bookings", label: "My Bookings", icon: CalendarDays },
+] as const;
+
+const isActivePath = (pathname: string, href: string) =>
+  href === "/"
+    ? pathname === "/"
+    : pathname === href || pathname.startsWith(`${href}/`);
+
 interface SessionButtonProps {
-  /**
-   * Hides the guest Login/Register pair on screens below `md`.
-   * Used by the navbar top bar, where those links already exist in the
-   * hamburger menu. Signed-in users still get their avatar.
-   */
   hideGuestActionsOnMobile?: boolean;
 }
 
@@ -37,6 +43,7 @@ export default function SessionButton({
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
   const user = session?.user;
 
   const handleSignOut = async () => {
@@ -76,33 +83,46 @@ export default function SessionButton({
                 </p>
               </div>
               <div className="my-2 h-px bg-border" />
-              <DropdownMenuItem className="cursor-pointer rounded-lg p-0 focus:bg-[#d1234c]/10 focus:text-[#d1234c]">
-                <Link
-                  href="/add-studio"
-                  className="flex w-full items-center gap-3 px-3 py-2.5 text-sm"
-                >
-                  <PlusCircle className="size-4 text-[#d1234c]" />
-                  Add New Studio
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer rounded-lg p-0">
-                <Link
-                  href="/my-listings"
-                  className="flex w-full items-center gap-3 px-3 py-2.5 text-sm"
-                >
-                  <Building2 className="size-4 text-muted-foreground" />
-                  My Studio Listings
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer rounded-lg p-0">
-                <Link
-                  href="/my-bookings"
-                  className="flex w-full items-center gap-3 px-3 py-2.5 text-sm"
-                >
-                  <CalendarDays className="size-4 text-muted-foreground" />
-                  My Bookings
-                </Link>
-              </DropdownMenuItem>
+              {accountLinks.map((item) => {
+                const active = isActivePath(pathname, item.href);
+                const Icon = item.icon;
+
+                return (
+                  <DropdownMenuItem
+                    key={item.href}
+                    className={cn(
+                      "cursor-pointer rounded-lg p-0 focus:bg-[#d1234c]/10 focus:text-[#d1234c]",
+                      active && "bg-[#d1234c]/10",
+                    )}
+                  >
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex w-full items-center gap-3 px-3 py-2.5 text-sm",
+                        active ? "font-medium text-[#d1234c]" : "text-foreground",
+                      )}
+                    >
+                      <Icon
+                        className={cn(
+                          "size-4",
+                          active
+                            ? "text-[#d1234c]"
+                            : "text-muted-foreground",
+                        )}
+                      />
+                      {item.label}
+                      {active && (
+                        <span
+                          aria-hidden="true"
+                          className="ml-auto size-1.5 rounded-full bg-[#d1234c]"
+                        />
+                      )}
+                    </Link>
+                  </DropdownMenuItem>
+                );
+              })}
 
               <div className="my-2 h-px bg-border" />
               <DropdownMenuItem

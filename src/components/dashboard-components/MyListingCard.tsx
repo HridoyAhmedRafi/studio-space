@@ -4,7 +4,6 @@ import {
   Users,
   Wallet,
   ExternalLink,
-  Trash2,
   Clapperboard,
 } from "lucide-react";
 import Image from "next/image";

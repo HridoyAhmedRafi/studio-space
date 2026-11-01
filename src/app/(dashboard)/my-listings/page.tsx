@@ -106,7 +106,7 @@ const MyStudioListings = async () => {
             </p>
 
             <Link
-              href="/dashboard/add-studio"
+              href="/add-studio"
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#CD274E] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#B51F43]"
             >
               <Plus size={17} />

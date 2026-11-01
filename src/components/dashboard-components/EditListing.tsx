@@ -90,7 +90,6 @@ const EditListing = ({ studio }: { studio: IStudio }) => {
         securityDeposit: Number(formData.get("securityDeposit")),
         amenities: selectedAmenities,
       };
-      console.log(updatedData, "updated data");
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/update-studio/${studio._id}`,
         {

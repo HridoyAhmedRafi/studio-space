@@ -17,7 +17,6 @@ export default function RegisterPage() {
       email: string;
       password: string;
     };
-    console.log(user, "user login");
 
     try {
       const { data, error } = await signIn.email({

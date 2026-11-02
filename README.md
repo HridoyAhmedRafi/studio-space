@@ -1,41 +1,38 @@
-# StudioSpace — Creative Studio Booking Platform
+# 🎬 StudioSpace — Creative Studio Booking Platform
 
 StudioSpace is a full-stack marketplace where creators discover production-ready
 spaces (photo studios, sound stages, podcast rooms, music suites, and art
 workshops) and book them by the hour. Hosts can list and manage their own
 studios, while creators track every booking request from a personal dashboard.
 
-## Live Site
+## 🌐 Live Site
 
 **URL:** https://studio-space-three.vercel.app
 
-> Deployment note: replace the URL above with the production link once the app
-> is deployed.
+## ✨ Features
 
-## Features
-
-- **Browse & search the marketplace** — filter studios by category (Photo
+- **🔍 Browse & search the marketplace** — filter studios by category (Photo
   Studio, Film Stage, Podcast Lounge, Music Suite, Workshop, Creative Space) or
   search across title, location, amenities, and overview.
-- **Shareable category deep links** — `/studios?category=Film%20Stage` pre-selects
+- **🔗 Shareable category deep links** — `/studios?category=Film%20Stage` pre-selects
   the matching filter, so category cards on the homepage jump straight to the
   right results.
-- **Rich studio detail pages** — gallery, amenities, capacity, location, host
+- **🖼️ Rich studio detail pages** — gallery, amenities, capacity, location, host
   details, pricing, and booking sidebar.
-- **Hourly booking flow** — pick date, start/end time, and guest count; the modal
+- **📅 Hourly booking flow** — pick date, start/end time, and guest count; the modal
   calculates duration, hourly total, security deposit, and estimated total live
   before submitting a request.
-- **Host dashboard** — add, edit, and delete your own studio listings, with
+- **📊 Host dashboard** — add, edit, and delete your own studio listings, with
   instant feedback on every action.
-- **Booking management** — a personal bookings list with status badges (Pending
+- **📋 Booking management** — a personal bookings list with status badges (Pending
   Host Approval, Confirmed, Completed, Cancelled), receipt/cancel actions, and
   live cancellation updates.
-- **Authentication** — email & password plus Google OAuth via Better Auth, with
+- **🔐 Authentication** — email & password plus Google OAuth via Better Auth, with
   guarded booking and dashboard routes.
-- **Polished UX** — light/dark theme, branded toast notifications, loading
+- **🎨 Polished UX** — light/dark theme, branded toast notifications, loading
   feedback, friendly empty states, and a custom 404 page.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer     | Technology                                             |
 | --------- | ------------------------------------------------------ |
@@ -48,7 +45,7 @@ studios, while creators track every booking request from a personal dashboard.
 | Icons     | lucide-react (custom inline SVG brand icons)           |
 | Linting   | ESLint 9 (eslint-config-next)                          |
 
-## Local Setup
+## 🚀 Local Setup
 
 1. **Clone the repository**
 
@@ -81,10 +78,7 @@ studios, while creators track every booking request from a personal dashboard.
 
 5. **Open** http://localhost:3000 in your browser.
 
-> The client expects the StudioSpace API (bookings, studios, auth) to be running
-> at `NEXT_PUBLIC_API_URL`.
-
-### Available Scripts
+### 📜 Available Scripts
 
 | Command         | Description                          |
 | --------------- | ------------------------------------ |
@@ -93,7 +87,7 @@ studios, while creators track every booking request from a personal dashboard.
 | `npm start`     | Serve the production build           |
 | `npm run lint`  | Run ESLint                           |
 
-## Examiner Test Credentials
+## 🔑 Examiner Test Credentials
 
 Use the demo account below to review authenticated flows (booking, host
 dashboard, booking management):
@@ -106,24 +100,32 @@ dashboard, booking management):
 > These are demo credentials for evaluation only and can be changed at any time
 > from the account settings.
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
 ├── app/
-│   ├── (auth)/           # Login & register
-│   ├── (dashboard)/      # My listings, my bookings, add studio
-│   ├── studios/          # Marketplace + studio detail routes
-│   ├── layout.tsx        # Root layout (navbar, toaster)
-│   └── page.tsx          # Homepage
+│   ├── (auth)/                 # Login & register pages
+│   ├── (dashboard)/            # add-studio, my-bookings, my-listings
+│   ├── api/auth/[...all]/      # Better Auth catch-all route
+│   ├── studios/                # Marketplace list + [studioId] detail routes
+│   ├── layout.tsx              # Root layout (navbar, toaster)
+│   ├── page.tsx                # Homepage
+│   ├── loading.tsx             # Global loading UI
+│   ├── not-found.tsx           # Custom 404 page
+│   └── globals.css             # Tailwind / global styles
 ├── components/
-│   ├── dashboard-components/
-│   ├── home/
-│   ├── shared/           # Navbar, footer, theme toggle
-│   └── ui/               # shadcn/Base UI primitives
-└── lib/                  # Auth client/config, types, helpers
+│   ├── dashboard-components/   # my-booking, my-listing, studio (cards, modals, filters)
+│   ├── home/                   # Homepage sections (banner, categories, featured…)
+│   ├── shared/                 # Navbar, footer, theme toggle, empty states
+│   ├── ui/                     # shadcn/Base UI primitives
+│   └── user-session/           # Session button
+├── lib/                        # Auth client/config, server/client tokens, toast, helpers
+├── types/                      # Studio & booking TypeScript types
+└── proxy.ts                    # Request proxy helper
+public/                         # Static assets (SVGs)
 ```
 
-## License
+## ⚖️ License
 
 Built for educational and portfolio purposes.

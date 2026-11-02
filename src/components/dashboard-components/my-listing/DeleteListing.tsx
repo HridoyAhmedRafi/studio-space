@@ -5,7 +5,15 @@ import { useRouter } from "next/navigation";
 import { LoaderCircle, Trash2 } from "lucide-react";
 import { toastError, toastSuccess } from "@/lib/toast";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { getClientToken } from "@/lib/getClientToken";
 // import { Button } from "../ui/button";
 // import {
 //   Dialog,
@@ -29,6 +37,7 @@ const DeleteListing = ({ studioId, studioTitle }: DeleteListingProps) => {
   const handleDelete = async () => {
     if (loading) return;
 
+    const token = await getClientToken();
     try {
       setLoading(true);
 
@@ -36,6 +45,9 @@ const DeleteListing = ({ studioId, studioTitle }: DeleteListingProps) => {
         `${process.env.NEXT_PUBLIC_API_URL}/delete-studio/${studioId}`,
         {
           method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         },
       );
 

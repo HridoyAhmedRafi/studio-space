@@ -24,6 +24,7 @@ import { toastError, toastSuccess } from "@/lib/toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
+import { getClientToken } from "@/lib/getClientToken";
 
 const categories = [
   "Photo Studio",
@@ -64,12 +65,13 @@ export default function AddStudioForm() {
 
     setSubmitting(true);
 
+    const token = await getClientToken();
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-studio`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });

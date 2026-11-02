@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { toastError, toastSuccess } from "@/lib/toast";
+import { getClientToken } from "@/lib/getClientToken";
 
 type BookingStudio = IStudio;
 
@@ -127,6 +128,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
       bookingTime: new Date().toISOString(),
     };
 
+    const token = await getClientToken();
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/add-bookings`,
@@ -134,6 +136,7 @@ const BookingModal = ({ studio }: { studio: BookingStudio }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(bookingData),
         },

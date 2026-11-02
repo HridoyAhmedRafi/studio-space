@@ -19,20 +19,20 @@ const quickLinks = [
 ] as const;
 
 const socialLinks = [
-  { label: "X (Twitter)", href: "https://x.com/studiospace", Icon: XIcon },
+  { label: "X (Twitter)", href: "https://x.com", Icon: XIcon },
   {
     label: "Instagram",
-    href: "https://instagram.com/studiospace",
+    href: "https://instagram.com",
     Icon: InstagramIcon,
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/company/studiospace",
+    href: "https://linkedin.com/company",
     Icon: LinkedInIcon,
   },
   {
     label: "YouTube",
-    href: "https://youtube.com/@studiospace",
+    href: "https://youtube.com",
     Icon: YouTubeIcon,
   },
 ] as const;

@@ -3,7 +3,7 @@
 StudioSpace is a full-stack marketplace where creators discover production-ready
 spaces (photo studios, sound stages, podcast rooms, music suites, and art
 workshops) and book them by the hour. Hosts can list and manage their own
-studios, while creators track every booking request from a personal dashboard.
+studios, while creators track every booking request.
 
 ## 🌐 Live Site
 
@@ -22,13 +22,12 @@ studios, while creators track every booking request from a personal dashboard.
 - **📅 Hourly booking flow** — pick date, start/end time, and guest count; the modal
   calculates duration, hourly total, security deposit, and estimated total live
   before submitting a request.
-- **📊 Host dashboard** — add, edit, and delete your own studio listings, with
-  instant feedback on every action.
+- **🏢 Studio management** — add, edit, and delete your own studio listings, with instant feedback on every action.
 - **📋 Booking management** — a personal bookings list with status badges (Pending
   Host Approval, Confirmed, Completed, Cancelled), receipt/cancel actions, and
   live cancellation updates.
-- **🔐 Authentication** — email & password plus Google OAuth via Better Auth, with
-  guarded booking and dashboard routes.
+- **🔐 Authentication** — email & password plus Google OAuth via Better Auth, with protected booking and management routes.
+  guarded booking and all protected routes.
 - **🎨 Polished UX** — light/dark theme, branded toast notifications, loading
   feedback, friendly empty states, and a custom 404 page.
 
@@ -90,16 +89,14 @@ studios, while creators track every booking request from a personal dashboard.
 
 ## 🔑 Examiner Test Credentials
 
-Use the demo account below to review authenticated flows (booking, host
-dashboard, booking management):
+Use the demo account below to review authenticated flows (studio management, booking, and booking management):
 
 | Field    | Value                      |
 | -------- | -------------------------- |
 | Email    | `examiner@studiospace.com` |
 | Password | `Examiner@123`             |
 
-> These are demo credentials for evaluation only and can be changed at any time
-> from the account settings.
+> These are demo credentials for evaluation only and can be changed at any time from the account settings.
 
 ## 📁 Project Structure
 
